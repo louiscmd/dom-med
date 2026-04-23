@@ -279,8 +279,8 @@ blockquote{position:relative;z-index:1;max-width:60rem;margin:0 auto}
 .lb-x{position:absolute;top:1.25rem;right:1.25rem;color:#fff;font-size:2rem;line-height:1;padding:.25rem;background:none;border:none;cursor:pointer}
 
 /* ─── WCAG WIDGET ─────────────────────────────────────────── */
-#wcag-btn{width:2.5rem;height:2.5rem;border-radius:50%;background:transparent;border:1.5px solid var(--bdr);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--fg);transition:border-color .2s,background .2s;flex-shrink:0}
-#wcag-btn:hover{border-color:var(--fg);background:var(--sec)}
+#wcag-btn{width:2.75rem;height:2.75rem;border-radius:50%;background:transparent;border:2px solid #b8ada1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .2s,transform .2s;flex-shrink:0}
+#wcag-btn:hover{opacity:.75;transform:scale(1.05)}
 #wcag-panel{display:none;position:fixed;top:10.25rem;left:1.5rem;background:#fff;border-radius:12px;width:19rem;box-shadow:0 8px 36px rgba(0,0,0,.16);z-index:9001;overflow:hidden}
 #wcag-panel.open{display:block}
 .wcag-hdr{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid #eee}
@@ -329,7 +329,13 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
     <div class="nav-row">
       <!-- WCAG button lives here so it aligns with nav links -->
       <button id="wcag-btn" aria-label="Dostępność" onclick="toggleWcag()">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M192 96a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm-8 352H88c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32zm104.2-207.4 1.9 9.7c2.3 11.5 8.4 21.9 17.2 29.4l89.2 50c10.7 6 14.5 19.5 8.5 30.2s-19.5 14.5-30.2 8.5l-68.4-38.4-13.1 50.9c-3.8 15.7-17.7 26.7-33.9 26.7-16.8 0-31.3-11.7-34.6-28.1L161.7 223.3c-5.9-29.5 16.7-57 46.8-57 22.8 0 42.3 16 46.8 38.3zm-144 154.2C78.8 271.4 48 312 48 360c0 57.5 48.5 105 106 103.8 40.6-.8 80.9-25.4 100.9-63.1l12.4-22.3c2.3-11.4 6.1-22.2 11.2-32.1l23.3 83.5C274.9 478.7 222.3 512 162 512 71.6 512 0 440.4 0 352c0-68.5 43.1-126.9 103.6-150.8 12.4-4.7 26.1 1.6 30.9 14s-1.6 26.1-14 30.9z"/></svg>
+        <svg viewBox="0 0 100 100" width="55%" height="55%" fill="none" stroke="#b8ada1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="40" cy="35" r="6"/>
+          <path d="M40 41 C40 55, 60 55, 60 70"/>
+          <path d="M45 50 L60 45"/>
+          <path d="M60 40 C70 40, 70 55, 60 55"/>
+          <path d="M30 65 C40 75, 55 75, 65 65"/>
+        </svg>
       </button>
       <!-- WCAG panel (fixed, opens below navbar) -->
       <div id="wcag-panel">
