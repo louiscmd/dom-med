@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DOM-MED</title>
+  <meta name="description" content="Platforma cyfrowa organizacji DOM-MED, dedykowana opiece nad seniorami, hospicjum domowemu oraz placówkom dziennej opieki, łącząca medyczną precyzję z ludzką empatią."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+/* ─── TOKENS ──────────────────────────────────────────────── */
+:root {
+  --bg:   hsl(38,30%,97%);
+  --fg:   hsl(22,15%,12%);
+  --sec:  hsl(38,25%,93%);
+  --mut:  hsl(22,10%,44%);
+  --acc:  hsl(349,28%,72%);
+  --bdr:  hsl(38,18%,82%);
+  --H:    "Cormorant Garamond", Georgia, serif;
+  --B:    "Inter", system-ui, sans-serif;
+}
+/* ─── RESET ───────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--B);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{border:none;background:none;cursor:pointer;font-family:var(--B)}
+
+/* ─── PAGE SWITCHING ──────────────────────────────────────── */
+.page{display:none}
+.page.on{display:block}
+
+/* ─── LAYOUT ──────────────────────────────────────────────── */
+.w{max-width:1280px;margin:0 auto;padding:0 1.5rem}
+@media(min-width:768px){.w{padding:0 3rem}}
+@media(min-width:1280px){.w{padding:0 5rem}}
+
+/* ═══════════════════════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════════════════════ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200}
+.nav-eu{background:#fff;border-bottom:1px solid var(--bdr);display:flex;justify-content:center;padding:.5rem 1rem}
+.nav-eu img{height:3.75rem;object-fit:contain}
+@media(min-width:768px){.nav-eu img{height:5rem}}
+
+.nav-bar{transition:background .4s}
+.nav-bar.scrolled{background:rgba(249,246,241,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--bdr)}
+.nav-row{max-width:1280px;margin:0 auto;padding:0 1.5rem;height:5rem;display:flex;align-items:center;justify-content:space-between}
+@media(min-width:768px){.nav-row{padding:0 3rem}}
+@media(min-width:1280px){.nav-row{padding:0 5rem}}
+.nav-logo{font-family:var(--H);font-size:1.5rem;letter-spacing:.04em;cursor:pointer}
+.nav-links{display:none;align-items:center;gap:2.5rem}
+@media(min-width:768px){.nav-links{display:flex}}
+.nav-links a{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);transition:color .2s;cursor:pointer}
+.nav-links a:hover{color:var(--fg)}
+.nav-links a.pill{border:1px solid var(--fg);padding:.625rem 1.5rem;color:var(--fg);transition:background .25s,color .25s}
+.nav-links a.pill:hover{background:var(--fg);color:var(--bg)}
+.nav-mob{display:flex}
+@media(min-width:768px){.nav-mob{display:none}}
+.nav-mob button{color:var(--fg);display:flex;align-items:center}
+
+/* ── MOBILE OVERLAY ──────────────────────────────────────── */
+.mob{display:none;position:fixed;inset:0;z-index:150;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;gap:1.5rem}
+.mob.open{display:flex}
+.mob a{font-family:var(--B);font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--fg);border:1px solid var(--fg);padding:.75rem 2rem;width:14rem;text-align:center;cursor:pointer;transition:background .2s,color .2s}
+.mob a:hover,.mob a.active{background:var(--fg);color:var(--bg)}
+.mob a.acc{border-color:var(--acc);color:var(--acc)}
+.mob a.acc:hover{background:var(--acc);color:var(--bg)}
+
+/* ═══════════════════════════════════════════════════════════
+   HOME – HERO
+═══════════════════════════════════════════════════════════ */
+#hero{min-height:100svh;display:flex;align-items:center;padding-top:9rem;padding-bottom:4rem}
+.hero-g{display:grid;grid-template-columns:1fr;gap:3rem;align-items:center;width:100%}
+@media(min-width:1024px){.hero-g{grid-template-columns:7fr 5fr}}
+
+.h-logo{width:13rem;margin-bottom:0}
+@media(min-width:768px){.h-logo{width:17rem}}
+@media(min-width:1024px){.h-logo{width:21rem}}
+
+.h-tag{font-family:var(--B);font-size:1rem;line-height:1.75;color:var(--mut);margin-top:2rem;max-width:33rem}
+@media(min-width:768px){.h-tag{font-size:1.0625rem}}
+
+.h-ctas{display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center;margin-top:3rem}
+.btn-circ{display:inline-flex;align-items:center;justify-content:center;width:8rem;height:8rem;border-radius:50%;border:1px solid var(--fg);color:var(--fg);font-family:var(--B);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;flex-shrink:0;transition:background .4s,color .4s;cursor:pointer}
+@media(min-width:768px){.btn-circ{width:10rem;height:10rem}}
+.btn-circ:hover{background:var(--fg);color:var(--bg)}
+.btn-ul{font-family:var(--B);font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);text-decoration:underline;text-underline-offset:4px;cursor:pointer;transition:color .2s;background:none;border:none;padding:0}
+.btn-ul:hover{color:var(--fg)}
+
+.h-img{position:relative;overflow:hidden;max-width:22rem;margin:0 auto;max-height:65vw}
+@media(min-width:1024px){.h-img{max-width:none;max-height:none;aspect-ratio:3/4}}
+.h-img img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.h-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(247,243,238,.3),transparent);pointer-events:none}
+
+/* ═══════════════════════════════════════════════════════════
+   HOME – SERVICES
+═══════════════════════════════════════════════════════════ */
+#svcs{padding:6rem 0}
+.svcs-g{display:grid;grid-template-columns:1fr;gap:3rem}
+@media(min-width:768px){.svcs-g{grid-template-columns:repeat(3,1fr);gap:1.5rem}}
+@media(min-width:1280px){.svcs-g{gap:3rem}}
+.svc{display:flex;flex-direction:column;cursor:default}
+.svc-img{aspect-ratio:3/4;overflow:hidden;margin-bottom:1.5rem}
+.svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.svc:hover .svc-img img{transform:scale(1.06)}
+.svc-n{font-family:var(--H);font-size:3rem;font-style:italic;line-height:1;margin-bottom:.75rem;color:var(--bdr);transition:color .35s}
+.svc:hover .svc-n{color:var(--acc)}
+.svc-ttl{font-family:var(--H);font-size:1.625rem;font-style:italic;color:var(--fg);margin-bottom:.75rem}
+.svc-bar{height:1px;background:var(--acc);margin-bottom:1rem;transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.svc:hover .svc-bar{transform:scaleX(1)}
+.svc-d{font-family:var(--B);font-size:.875rem;line-height:1.75;color:var(--mut)}
+
+/* ═══════════════════════════════════════════════════════════
+   HOME – QUOTE
+═══════════════════════════════════════════════════════════ */
+#quote{position:relative;background:var(--sec);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:7rem 1.5rem 9rem;text-align:center;overflow:hidden}
+@media(min-width:768px){#quote{padding:10rem 3rem}}
+.q-lines{position:absolute;inset:0;pointer-events:none}
+.q-lines span{position:absolute;left:0;right:0;height:1px;background:var(--acc);opacity:.12}
+blockquote{position:relative;z-index:1;max-width:60rem;margin:0 auto}
+.q-t{font-family:var(--H);font-size:clamp(1.75rem,4.5vw,3.5rem);font-style:italic;line-height:1.3;color:var(--fg)}
+.q-t span{display:inline-block;margin-right:.25em}
+.q-cite{display:block;margin-top:2.5rem;font-family:var(--B);font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+
+/* ═══════════════════════════════════════════════════════════
+   HOME – REGISTRATION
+═══════════════════════════════════════════════════════════ */
+#reg{padding:6rem 0 8rem;background:var(--sec)}
+.reg-g{display:grid;grid-template-columns:1fr;gap:4rem;align-items:start}
+@media(min-width:1024px){.reg-g{grid-template-columns:1fr 1fr}}
+.reg-lbl{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:1rem}
+.reg-h{font-family:var(--H);font-size:clamp(2rem,4vw,3.25rem);font-style:italic;line-height:1.15;color:var(--fg)}
+.reg-p{font-family:var(--B);font-size:.9375rem;color:var(--mut);margin-top:1.5rem;line-height:1.8;max-width:28rem}
+.free{display:flex;align-items:center;gap:1rem;margin-top:2.5rem}
+.free-line{width:3rem;height:1px;background:var(--acc)}
+.free-t{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+.f-stack{display:flex;flex-direction:column;gap:1.25rem}
+.f-grp{display:flex;flex-direction:column;gap:.5rem}
+.f-lbl{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+.f-in,.f-sel,.f-ta{width:100%;background:var(--bg);border:1px solid var(--bdr);padding:.75rem 1rem;font-family:var(--B);font-size:.875rem;color:var(--fg);outline:none;transition:box-shadow .2s;-webkit-appearance:none;appearance:none;border-radius:0}
+.f-in::placeholder,.f-ta::placeholder{color:var(--mut)}
+.f-in:focus,.f-sel:focus,.f-ta:focus{box-shadow:0 0 0 1px var(--acc)}
+.f-ta{resize:vertical;min-height:6.5rem}
+.f-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23776c63' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
+.f-btn{width:100%;background:var(--fg);color:var(--bg);font-family:var(--B);font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:1rem;border:none;cursor:pointer;transition:opacity .2s}
+.f-btn:hover{opacity:.85}
+.f-btn:disabled{opacity:.6;cursor:wait}
+.f-note{font-family:var(--B);font-size:.7rem;color:var(--mut);line-height:1.6}
+.f-ok{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 0;text-align:center;gap:1.5rem}
+.f-ok-icon{width:3.5rem;height:3.5rem;border-radius:50%;border:1px solid var(--acc);display:flex;align-items:center;justify-content:center;color:var(--acc)}
+.f-ok h3{font-family:var(--H);font-size:1.5rem;font-style:italic}
+.f-ok p{font-family:var(--B);font-size:.875rem;color:var(--mut)}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER (shared)
+═══════════════════════════════════════════════════════════ */
+.foot{padding:5rem 0 6rem;border-top:1px solid var(--bdr)}
+.foot-g{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+@media(min-width:1024px){.foot-g{grid-template-columns:repeat(4,1fr);gap:2rem}}
+.foot-brand{font-family:var(--H);font-size:1.5rem;font-style:italic;margin-bottom:.25rem}
+.foot-sub{font-family:var(--B);font-size:.875rem;color:var(--mut)}
+.foot-col-lbl{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:1rem}
+.foot-a{display:block;font-family:var(--B);font-size:.875rem;color:var(--fg);line-height:1.75;transition:color .2s}
+.foot-a:hover{color:var(--acc)}
+.foot-bot{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--bdr);display:flex;flex-direction:column;gap:.75rem;align-items:center}
+@media(min-width:640px){.foot-bot{flex-direction:row;justify-content:space-between}}
+.foot-copy,.foot-motto{font-family:var(--B);font-size:.7rem;color:var(--mut)}
+
+/* ═══════════════════════════════════════════════════════════
+   PROJECTS LIST PAGE
+═══════════════════════════════════════════════════════════ */
+#page-projekty{min-height:100svh;display:none;flex-direction:column}
+#page-projekty.on{display:flex}
+.p-main{flex:1;padding-top:13rem;padding-bottom:6rem}
+@media(min-width:768px){.p-main{padding-top:16rem}}
+.p-inner{max-width:42rem;margin:0 auto;padding:0 1.5rem;display:flex;flex-direction:column;align-items:center;gap:1.25rem}
+.p-tag{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:.5rem}
+.p-title{font-family:var(--H);font-size:clamp(2.75rem,6vw,3.75rem);font-style:italic;color:var(--fg);margin-bottom:2.5rem;text-align:center}
+.pill{display:block;width:100%;text-align:center;font-family:var(--B);font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--fg);border-radius:9999px;padding:1rem 2rem;color:var(--fg);transition:background .25s,color .25s;cursor:pointer;background:none}
+.pill:hover{background:var(--fg);color:var(--bg)}
+.pill.acc{border-color:var(--acc);color:var(--acc)}
+.pill.acc:hover{background:var(--acc);color:var(--bg)}
+
+/* ═══════════════════════════════════════════════════════════
+   PROJECT DETAIL PAGE
+═══════════════════════════════════════════════════════════ */
+#page-proj{min-height:100svh;display:none;flex-direction:column}
+#page-proj.on{display:flex}
+.pd-main{flex:1;padding-top:13rem;padding-bottom:6rem}
+@media(min-width:768px){.pd-main{padding-top:16rem}}
+.pd-inner{max-width:48rem;margin:0 auto;padding:0 1.5rem}
+@media(min-width:768px){.pd-inner{padding:0 3rem}}
+
+.back{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:3rem;cursor:pointer;transition:color .2s;background:none;border:none;padding:0}
+.back:hover{color:var(--fg)}
+
+/* page header */
+.ph-lbl{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:.75rem}
+.ph-h{font-family:var(--H);font-size:clamp(2rem,4.5vw,3.25rem);font-style:italic;line-height:1.15;color:var(--fg);margin-bottom:1.5rem}
+.ph-bar{width:4rem;height:1px;background:var(--acc);margin-bottom:4rem}
+
+/* section block */
+.sb{margin-bottom:3.5rem}
+.sb-hdr{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.25rem}
+.sb-n{font-family:var(--H);font-size:2.5rem;font-style:italic;color:var(--acc);line-height:1;flex-shrink:0}
+.sb-t{font-family:var(--H);font-size:clamp(1.25rem,2.5vw,1.75rem);font-style:italic;color:var(--fg)}
+.sb-b{padding-left:0}
+@media(min-width:768px){.sb-b{padding-left:3rem}}
+
+.tm{font-family:var(--B);font-size:.875rem;line-height:1.8;color:var(--mut)}
+.nl{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
+.ni{display:flex;gap:1rem}
+.nn{font-family:var(--H);font-size:1.125rem;font-style:italic;color:var(--acc);flex-shrink:0;line-height:1.5}
+.bl{display:flex;flex-direction:column;gap:.75rem}
+.bi{display:flex;align-items:flex-start;gap:.75rem}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0;margin-top:.5rem}
+.sub{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-top:1.5rem;margin-bottom:.75rem}
+.acc-bdr{border-left:2px solid var(--acc);padding-left:1rem}
+
+.bx{background:var(--sec);padding:1.25rem;border-radius:2px;margin-bottom:1.5rem}
+.bx-l{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:.25rem}
+.bx-v{font-family:var(--B);font-size:.875rem;color:var(--fg)}
+.bx-dk{background:var(--fg);color:var(--bg);padding:1.25rem 1.5rem;border-radius:2px;font-family:var(--B);font-size:.875rem;line-height:1.75;margin-bottom:1.5rem}
+.bx-dk strong{font-weight:600}
+
+.ddp{background:var(--sec);padding:1.25rem 1.5rem;border-radius:2px;margin-bottom:2rem}
+.ddp-lbl{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:.75rem}
+.ddp-addr{font-family:var(--B);font-size:.875rem;font-weight:600;color:var(--fg);margin-bottom:.75rem}
+.dr{display:flex;flex-direction:column;gap:.2rem;padding:.625rem 0;border-bottom:1px solid var(--bdr)}
+.dr:last-child{border-bottom:none}
+@media(min-width:640px){.dr{flex-direction:row;align-items:center;gap:1rem}}
+.dk{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);min-width:7rem;flex-shrink:0}
+.dv{font-family:var(--B);font-size:.875rem;color:var(--fg)}
+
+.fin{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+.fin-d{background:var(--fg);color:var(--bg);padding:1.25rem;border-radius:2px}
+.fin-l{border:1px solid var(--bdr);padding:1.25rem;border-radius:2px}
+.fin-lbl{font-family:var(--B);font-size:.6rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;opacity:.65;margin-bottom:.25rem}
+.fin-l .fin-lbl{opacity:1;color:var(--mut)}
+.fin-amt{font-family:var(--H);font-size:1.5rem;font-style:italic}
+
+.fsec{margin-top:4rem;padding-top:2.5rem;border-top:1px solid var(--bdr)}
+.fsec-lbl{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:1.5rem}
+.fl{display:flex;flex-direction:column;gap:.75rem}
+.fr{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.875rem 1.25rem;border:1px solid var(--bdr);border-radius:9999px;transition:background .2s,color .2s,border-color .2s}
+.fr:hover{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.fr:hover .fi,.fr:hover .fn,.fr:hover .fa{color:var(--bg)}
+.fi-r{display:flex;align-items:center;gap:.75rem}
+.fi{color:var(--acc);flex-shrink:0}
+.fn{font-family:var(--B);font-size:.875rem;color:var(--fg)}
+.fa{color:var(--mut);flex-shrink:0}
+
+.hrs{display:flex;flex-direction:column;gap:.5rem}
+.hr-row{display:flex;justify-content:space-between;gap:1rem}
+.hd{font-family:var(--B);font-size:.8125rem;color:var(--mut)}
+.hh{font-family:var(--B);font-size:.8125rem;font-weight:600;color:var(--fg)}
+
+.cg{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-bottom:3.5rem}
+@media(min-width:640px){.cg{grid-template-columns:1fr 1fr}}
+
+.post{cursor:zoom-in;margin-bottom:3.5rem}
+.post img{width:100%;border-radius:2px;border:1px solid var(--bdr);transition:opacity .2s}
+.post:hover img{opacity:.9}
+.post-cap{font-family:var(--B);font-size:.7rem;color:var(--mut);text-align:center;margin-top:.5rem;letter-spacing:.04em}
+
+.zi{margin-bottom:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid var(--bdr)}
+.zi:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.zh{display:flex;gap:1.25rem;margin-bottom:2rem}
+.zn{font-family:var(--H);font-size:1.875rem;font-style:italic;color:var(--acc);flex-shrink:0;line-height:1.3}
+.zt{font-family:var(--B);font-size:.875rem;color:var(--mut);line-height:1.85}
+
+/* ─── LIGHTBOX ────────────────────────────────────────────── */
+.lb{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.82);align-items:center;justify-content:center;padding:1rem}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:90vh;object-fit:contain;border-radius:2px}
+.lb-x{position:absolute;top:1.25rem;right:1.25rem;color:#fff;font-size:2rem;line-height:1;padding:.25rem;background:none;border:none;cursor:pointer}
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══════════════════════════════════════════════ -->
+<div id="nav">
+  <div class="nav-eu">
+    <img src="images/eu-logos.png" alt="Fundusze Europejskie dla Mazowsza / Rzeczpospolita Polska / UE / Mazowsze"
+         onerror="this.src='https://media.base44.com/images/public/69d67971d59a329e585dd5f2/2c44a91b9_ChatGPTImage8avr202620_50_52.jpg'"/>
+  </div>
+  <nav class="nav-bar" id="nb">
+    <div class="nav-row">
+      <span class="nav-logo" onclick="go('home')">DOM-MED</span>
+      <div class="nav-links">
+        <a class="pill" onclick="go('projekty')">Projekty</a>
+        <a onclick="go('home')">Strona główna</a>
+        <a onclick="sc('o-nas')">O nas</a>
+        <a onclick="sc('reg')">Rejestracja</a>
+        <a onclick="sc('foot')">Kontakt</a>
+      </div>
+      <div class="nav-mob">
+        <button onclick="togM()" id="mb-btn" aria-label="Menu">
+          <svg id="ic-m" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg id="ic-x" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- ══ MOBILE OVERLAY ══════════════════════════════════════ -->
+<div class="mob" id="mob">
+  <a class="acc" onclick="go('projekty');cM()">Projekty</a>
+  <a onclick="go('home');cM()">Strona główna</a>
+  <a onclick="sc('o-nas');cM()">O nas</a>
+  <a onclick="sc('reg');cM()">Rejestracja</a>
+  <a onclick="sc('foot');cM()">Kontakt</a>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════════════════════ -->
+<div id="page-home" class="page on">
+
+  <!-- HERO ─────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="w" style="width:100%">
+      <div class="hero-g">
+
+        <div class="hero-l">
+          <img class="h-logo"
+               src="images/dom-med-logo.png"
+               alt="DOM-MED by Dominika Sutnik"
+               onerror="this.src='https://media.base44.com/images/public/69d67971d59a329e585dd5f2/6a02eb69e_Photoroom_20260408_204801.PNG'"/>
+          <p class="h-tag">Tworzymy miejsca, w&nbsp;których troska staje się sztuką, a&nbsp;opieka — aktem najgłębszego szacunku dla ludzkiego życia.</p>
+          <div class="h-ctas">
+            <span class="btn-circ" onclick="go('projekty')">Projekty</span>
+            <button class="btn-ul" onclick="sc('reg')">Zapisz się</button>
+          </div>
+        </div>
+
+        <div class="hero-r">
+          <div class="h-img">
+            <img src="https://media.base44.com/images/public/69d67971d59a329e585dd5f2/adb2e176b_image.png"
+                 alt="Dłonie splecione w geście wsparcia — symbol opieki DOM-MED"/>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER ──────────────────────────────────────────── -->
+  <div class="w"><hr style="border:none;border-top:1px solid var(--bdr)"/></div>
+
+  <!-- SERVICES ─────────────────────────────────────────── -->
+  <div id="o-nas">
+    <section id="svcs">
+      <div class="w">
+        <div class="svcs-g">
+
+          <div class="svc">
+            <div class="svc-img">
+              <img src="https://media.base44.com/images/public/69d67971d59a329e585dd5f2/7fe547200_image.png"
+                   alt="Jasne, nowoczesne wnętrze ośrodka opieki"/>
+            </div>
+            <span class="svc-n">01</span>
+            <h3 class="svc-ttl">Opieka nad seniorami</h3>
+            <div class="svc-bar"></div>
+            <p class="svc-d">Zapewniamy kompleksową opiekę osób starszych, budując relacje oparte na zaufaniu i godności. Każdy podopieczny to niepowtarzalna historia, którą otaczamy troską.</p>
+          </div>
+
+          <div class="svc">
+            <div class="svc-img">
+              <img src="https://media.base44.com/images/public/69d67971d59a329e585dd5f2/5af676188_image.png"
+                   alt="Spokojna sypialnia z białą pościelą"/>
+            </div>
+            <span class="svc-n">02</span>
+            <h3 class="svc-ttl">Hospicjum domowe</h3>
+            <div class="svc-bar"></div>
+            <p class="svc-d">Towarzyszymy w najtrudniejszych chwilach, oferując profesjonalną opiekę paliatywną w zaciszu domu. Dbamy o komfort, spokój i godność do ostatniego dnia.</p>
+          </div>
+
+          <div class="svc">
+            <div class="svc-img">
+              <img src="https://media.base44.com/images/public/69d67971d59a329e585dd5f2/5acb096af_image.png"
+                   alt="Przestronna sala wspólna z drewnianym stołem"/>
+            </div>
+            <span class="svc-n">03</span>
+            <h3 class="svc-ttl">Domy dziennego pobytu</h3>
+            <div class="svc-bar"></div>
+            <p class="svc-d">Tworzymy przestrzenie, w których seniorzy odnajdują wspólnotę, aktywność i radość codzienności. Miejsca, które łączą profesjonalną opiekę z domowym ciepłem.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- QUOTE ────────────────────────────────────────────── -->
+  <section id="quote">
+    <div class="q-lines">
+      <span style="top:14%"></span><span style="top:28%"></span><span style="top:42%"></span>
+      <span style="top:58%"></span><span style="top:72%"></span><span style="top:86%"></span>
+    </div>
+    <blockquote>
+      <p class="q-t"><span>„W</span><span>DOM-MED</span><span>nie</span><span>leczymy</span><span>tylko</span><span>ciała;</span><span>pielęgnujemy</span><span>historię</span><span>każdego</span><span>człowieka."</span></p>
+      <footer><cite class="q-cite">— Dominika Sutnik, Założycielka</cite></footer>
+    </blockquote>
+  </section>
+
+  <!-- REGISTRATION ─────────────────────────────────────── -->
+  <section id="reg">
+    <div class="w">
+      <div class="reg-g">
+        <div>
+          <p class="reg-lbl">Rejestracja</p>
+          <h2 class="reg-h">Zrób pierwszy krok w stronę godnej opieki</h2>
+          <p class="reg-p">Wypełnij formularz, a nasz zespół skontaktuje się z&nbsp;Tobą w&nbsp;ciągu 24&nbsp;godzin, aby omówić szczegóły i&nbsp;dopasować opiekę do indywidualnych potrzeb.</p>
+          <div class="free"><span class="free-line"></span><span class="free-t">Bezpłatna konsultacja</span></div>
+        </div>
+        <div id="form-wrap">
+          <form class="f-stack" onsubmit="fSend(event)">
+            <div class="f-grp">
+              <label class="f-lbl" for="fn">Imię i nazwisko *</label>
+              <input class="f-in" id="fn" name="name" type="text" required placeholder="Jan Kowalski"/>
+            </div>
+            <div class="f-grp">
+              <label class="f-lbl" for="fs">Interesująca usługa</label>
+              <select class="f-sel" id="fs" name="service">
+                <option value="">Wybierz usługę…</option>
+                <option>Opieka nad seniorami</option>
+                <option>Hospicjum domowe</option>
+                <option>Dom dziennego pobytu</option>
+              </select>
+            </div>
+            <div class="f-grp">
+              <label class="f-lbl" for="fm">Wiadomość</label>
+              <textarea class="f-ta" id="fm" name="message" placeholder="Opisz swoje potrzeby…"></textarea>
+            </div>
+            <button type="submit" class="f-btn" id="fbtn">Wyślij zgłoszenie</button>
+            <p class="f-note">Dane są przetwarzane zgodnie z&nbsp;RODO. Nie udostępniamy ich osobom trzecim.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER ───────────────────────────────────────────── -->
+  <footer class="foot" id="foot">
+    <div class="w">
+      <div class="foot-g">
+        <div><p class="foot-brand">DOM-MED</p><p class="foot-sub">by Dominika Sutnik</p></div>
+        <div>
+          <p class="foot-col-lbl">Kontakt</p>
+          <a href="mailto:dominikasutnik@wp.pl" class="foot-a">dominikasutnik@wp.pl</a>
+          <a href="tel:500279939" class="foot-a">500 279 939</a>
+        </div>
+      </div>
+      <div class="foot-bot">
+        <p class="foot-copy">© <span class="yr"></span> DOM-MED by Dominika Sutnik. Wszelkie prawa zastrzeżone.</p>
+        <p class="foot-motto">Godność · Troska · Profesjonalizm</p>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /page-home -->
+
+
+<!-- ══════════════════════════════════════════════════════════
+     PROJECTS LIST
+══════════════════════════════════════════════════════════ -->
+<div id="page-projekty">
+  <main class="p-main">
+    <div class="p-inner">
+      <p class="p-tag">DOM-MED</p>
+      <h1 class="p-title">Projekty</h1>
+      <button class="pill acc" onclick="go('home')">Strona główna</button>
+      <button class="pill" onclick="go('razem')">Razem w codzienności</button>
+      <button class="pill" onclick="go('codzienna')">Codzienna Opieka (Przasnysz Dom Med)</button>
+      <button class="pill" onclick="go('depresja')">NIE dla depresji!</button>
+      <button class="pill" onclick="go('zapytania')">Zapytania ofertowe</button>
+      <button class="pill" onclick="go('ddom')">Dzienny dom opieki medycznej</button>
+      <button class="pill" onclick="go('fizjo')">Polityka zdrowia w zakresie fizjoterapii</button>
+    </div>
+  </main>
+  <footer class="foot">
+    <div class="w">
+      <div class="foot-g">
+        <div><p class="foot-brand">DOM-MED</p><p class="foot-sub">by Dominika Sutnik</p></div>
+        <div><p class="foot-col-lbl">Kontakt</p><a href="mailto:dominikasutnik@wp.pl" class="foot-a">dominikasutnik@wp.pl</a><a href="tel:500279939" class="foot-a">500 279 939</a></div>
+      </div>
+      <div class="foot-bot">
+        <p class="foot-copy">© <span class="yr"></span> DOM-MED by Dominika Sutnik. Wszelkie prawa zastrzeżone.</p>
+        <p class="foot-motto">Godność · Troska · Profesjonalizm</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     PROJECT DETAIL
+══════════════════════════════════════════════════════════ -->
+<div id="page-proj">
+  <main class="pd-main">
+    <div class="pd-inner">
+      <button class="back" onclick="go('projekty')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Projekty
+      </button>
+      <div id="pc"></div>
+    </div>
+  </main>
+  <footer class="foot">
+    <div class="w">
+      <div class="foot-g">
+        <div><p class="foot-brand">DOM-MED</p><p class="foot-sub">by Dominika Sutnik</p></div>
+        <div><p class="foot-col-lbl">Kontakt</p><a href="mailto:dominikasutnik@wp.pl" class="foot-a">dominikasutnik@wp.pl</a><a href="tel:500279939" class="foot-a">500 279 939</a></div>
+      </div>
+      <div class="foot-bot">
+        <p class="foot-copy">© <span class="yr"></span> DOM-MED by Dominika Sutnik. Wszelkie prawa zastrzeżone.</p>
+        <p class="foot-motto">Godność · Troska · Profesjonalizm</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="cLb()">
+  <button class="lb-x" onclick="cLb()">×</button>
+  <img id="lbi" src="" alt="" onclick="event.stopPropagation()"/>
+</div>
+
+<script>
+/* ── SVG ATOMS ─────────────────────────────────────────── */
+const SV_FILE=`<svg class="fi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;
+const SV_DL=`<svg class="fa" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
+
+/* ── BUILDERS ──────────────────────────────────────────── */
+const fLinks=a=>a.map(f=>`<a href="${f.h}" target="_blank" rel="noopener noreferrer" class="fr"><div class="fi-r">${SV_FILE}<span class="fn">${f.l}</span></div>${SV_DL}</a>`).join('');
+const bul=a=>`<div class="bl">${a.map(t=>`<div class="bi"><span class="dot"></span><p class="tm">${t}</p></div>`).join('')}</div>`;
+const num=a=>a.map((t,i)=>`<div class="ni"><span class="nn">${i+1}.</span><p class="tm">${t}</p></div>`).join('');
+const sb=(n,t,b)=>`<div class="sb"><div class="sb-hdr"><span class="sb-n">${n}</span><h2 class="sb-t">${t}</h2></div><div class="sb-b">${b}</div></div>`;
+const fin=(a,b)=>`<div class="fin"><div class="fin-d"><p class="fin-lbl">Wartość projektu</p><p class="fin-amt">${a}</p></div><div class="fin-l"><p class="fin-lbl">Wkład Funduszy Europejskich</p><p class="fin-amt">${b}</p></div></div>`;
+
+/* ── ROUTING ───────────────────────────────────────────── */
+const PROJ_PAGES = new Set(['razem','codzienna','depresja','zapytania','ddom','fizjo']);
+const renderers  = {razem,codzienna,depresja,zapytania,ddom,fizjo};
+
+function go(p){
+  // hide all
+  ['page-home','page-projekty','page-proj'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.classList.remove('on');
+    if(id==='page-projekty'||id==='page-proj') el.style.display='none';
+  });
+  window.scrollTo(0,0);
+  location.hash=p;
+
+  if(p==='home'){
+    document.getElementById('page-home').classList.add('on');
+  } else if(p==='projekty'){
+    const el=document.getElementById('page-projekty');
+    el.style.display='flex'; el.classList.add('on');
+  } else if(PROJ_PAGES.has(p)){
+    const el=document.getElementById('page-proj');
+    el.style.display='flex'; el.classList.add('on');
+    document.getElementById('pc').innerHTML=renderers[p]();
+  }
+}
+
+function sc(id){
+  if(!document.getElementById('page-home').classList.contains('on')){
+    go('home'); setTimeout(()=>sEl(id),120);
+  } else { sEl(id); }
+}
+function sEl(id){ const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }
+
+/* ── MOBILE ────────────────────────────────────────────── */
+let mO=false;
+function togM(){ mO=!mO; document.getElementById('mob').classList.toggle('open',mO); document.getElementById('ic-m').style.display=mO?'none':''; document.getElementById('ic-x').style.display=mO?'':'none'; }
+function cM(){ mO=false; document.getElementById('mob').classList.remove('open'); document.getElementById('ic-m').style.display=''; document.getElementById('ic-x').style.display='none'; }
+
+/* ── SCROLL NAV ────────────────────────────────────────── */
+window.addEventListener('scroll',()=>document.getElementById('nb').classList.toggle('scrolled',scrollY>40));
+
+/* ── FORM ──────────────────────────────────────────────── */
+function fSend(e){
+  e.preventDefault();
+  const b=document.getElementById('fbtn'); b.disabled=true; b.textContent='Wysyłanie…';
+  setTimeout(()=>{
+    document.getElementById('form-wrap').innerHTML=`<div class="f-ok">
+      <div class="f-ok-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+      <h3>Dziękujemy za zgłoszenie!</h3><p>Odezwiemy się w ciągu 24 godzin.</p></div>`;
+  },1200);
+}
+
+/* ── LIGHTBOX ──────────────────────────────────────────── */
+function oLb(s,a){ document.getElementById('lbi').src=s; document.getElementById('lbi').alt=a||''; document.getElementById('lb').classList.add('open'); }
+function cLb(){ document.getElementById('lb').classList.remove('open'); }
+
+/* ── INIT ──────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded',()=>{
+  const y=new Date().getFullYear();
+  document.querySelectorAll('.yr').forEach(el=>el.textContent=y);
+  const h=location.hash.replace('#','');
+  if(h) go(h);
+});
+
+/* ══════════════════════════════════════════════════════════
+   RENDERERS
+══════════════════════════════════════════════════════════ */
+
+function razem(){
+  const F=[{l:'Regulamin rekrutacji i uczestnictwa w projekcie',h:'http://dom-med.com/regulamin1_2025.pdf'},{l:'Formularz zgłoszeniowy do projektu',h:'http://dom-med.com/zalacznik_1.pdf'},{l:'Umowa uczestnictwa w projekcie',h:'http://dom-med.com/zalacznik_2.pdf'}];
+  return `
+<p class="ph-lbl">DOM-MED Dominika Sutnik</p>
+<h1 class="ph-h">„Razem w codzienności"</h1>
+<div class="ph-bar"></div>
+
+${sb('I.','Informacje ogólne',`
+<p class="tm" style="margin-bottom:1rem">DOM-MED Dominika Sutnik realizuje projekt pt. <em>„Razem w codzienności"</em>. Projekt jest współfinansowany z Europejskiego Funduszu Społecznego Plus w ramach:</p>
+<ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
+  <li class="tm acc-bdr">Priorytet VIII — Fundusze Europejskie dla aktywnej integracji oraz rozwoju usług społecznych i zdrowotnych na Mazowszu</li>
+  <li class="tm acc-bdr">Działanie 8.5 — Usługi społeczne i zdrowotne, Program Fundusze Europejskie dla Mazowsza 2021–2027</li>
+</ul>
+<div class="bx"><p class="bx-l">Nr umowy o dofinansowanie</p><p class="bx-v">FEMA.08.05-IP.01-04UA/24</p></div>`)}
+
+${sb('II.','Cel główny projektu',`
+<p class="tm" style="margin-bottom:1.5rem">Rozwój dobrej jakości usług społecznych poprzez:</p>
+<div class="nl">${num(['Utworzenie 4 nowych miejsc stacjonarnego świadczenia usług społecznych w DDP w Ostrołęce dla osób potrzebujących wsparcia (3 kobiety i 1 mężczyzna).','Świadczenie usług opiekuńczych, asystenckich i specjalistycznych usług opiekuńczych w miejscu zamieszkania dla 18 osób (11 kobiet i 7 mężczyzn).','Usługi przeznaczone są dla osób w wieku 60+ zamieszkujących gminy: Czerwin, Troszyn i m. Ostrołęka.'])}</div>
+<div style="border-top:1px solid var(--bdr);padding-top:1.5rem;margin-top:.5rem">
+  <p class="sub" style="margin-top:0">Realizacja celu nastąpi poprzez</p>
+  ${bul(['Zwiększenie autonomii Uczestników/Uczestniczek poprzez usługi opiekuńcze i asystenckie w domu.','Poprawę zdrowia i jakości życia poprzez rehabilitację i wsparcie psychologiczne.','Zmniejszenie poczucia osamotnienia i zwiększenie autonomii przez pobyt w DDP.'])}
+</div>`)}
+
+${sb('III.','Grupa docelowa',`
+<p class="tm" style="margin-bottom:1.5rem">Mieszkańcy gmin <strong style="color:var(--fg)">Czerwin, Troszyn i m. Ostrołęka</strong>, powyżej 60. roku życia, potrzebujący wsparcia w codziennym funkcjonowaniu, którzy nie korzystają z tych samych usług w innym projekcie EFS+.</p>
+<p class="sub" style="margin-top:0">Promowane osoby z</p>
+${bul(['niepełnosprawnościami w stopniu znacznym lub umiarkowanym','niepełnosprawnością sprzężoną lub intelektualną','chorobami psychicznymi','korzystające z Programu Fundusze Europejskie na Pomoc Żywnościową 2021–2027','samotne, pobierające minimalną emeryturę'])}
+<div class="bx" style="margin-top:2rem"><p class="bx-l">Liczba uczestników</p><p class="bx-v">22 osoby — 14 kobiet, 8 mężczyzn</p></div>`)}
+
+${sb('IV.','Zadania w projekcie',`
+${bul(['Opracowanie zakresu wsparcia na podstawie indywidualnej diagnozy.','Świadczenie usług opiekuńczych i asystenckich w miejscu zamieszkania.','Świadczenie specjalistycznych usług (fizjoterapeuta, psycholog).'])}
+<div class="ddp" style="margin-top:2rem">
+  <p class="ddp-lbl">Dzienny Dom Pomocy (DDP)</p>
+  <p class="ddp-addr">ul. Piłsudskiego 40, Ostrołęka</p>
+  <div class="dr"><span class="dk">Usługi</span><span class="dv">opiekuńcze, terapeutyczne, rehabilitacja, integracja, rekreacja</span></div>
+  <div class="dr"><span class="dk">Personel</span><span class="dv">opiekunka, fizjoterapeuta, pielęgniarka, pracownik socjalny, psycholog, terapeuta zajęciowy</span></div>
+  <div class="dr"><span class="dk">Godziny</span><span class="dv">dni robocze, 8h/dzień</span></div>
+  <div class="dr"><span class="dk">Czas trwania</span><span class="dv">01.06.2025 – 31.07.2026</span></div>
+</div>
+${fin('861 660 zł','732 411 zł')}`)}
+
+<div class="fsec"><p class="fsec-lbl">Rekrutacja do projektu</p><div class="fl">${fLinks(F)}</div></div>`;
+}
+
+function codzienna(){
+  const F=[{l:'Regulamin rekrutacji i uczestnictwa w projekcie',h:'http://dom-med.com/regulamin1_2025.pdf'},{l:'Formularz zgłoszeniowy do projektu',h:'http://dom-med.com/zalacznik_1.pdf'},{l:'Umowa uczestnictwa w projekcie',h:'http://dom-med.com/zalacznik_2.pdf'}];
+  return `
+<p class="ph-lbl">DOM-MED Dominika Sutnik</p>
+<h1 class="ph-h">„Codzienna Opieka (Przasnysz Dom Med)"</h1>
+<div class="ph-bar"></div>
+
+${sb('I.','Informacje ogólne',`
+<p class="tm" style="margin-bottom:1rem">DOM-MED Dominika Sutnik realizuje projekt pt. <em>„Codzienna Opieka (Przasnysz Dom Med)"</em>. Projekt jest współfinansowany z Europejskiego Funduszu Społecznego Plus w ramach:</p>
+<ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
+  <li class="tm acc-bdr">Program Fundusze Europejskie dla Mazowsza 2021–2027, Działanie 8.5</li>
+</ul>
+<div class="bx"><p class="bx-l">Nr umowy o dofinansowanie</p><p class="bx-v">FEMA.08.05-IP.01-04W4/24</p></div>`)}
+
+${sb('II.','Cel główny projektu',`
+<p class="tm" style="margin-bottom:1.5rem">Rozwój dobrej jakości usług społecznych poprzez:</p>
+<div class="nl">${num(['Utworzenie 4 miejsc stacjonarnego świadczenia usług w DDP w Przasnyszu (3 kobiety, 1 mężczyzna).','Świadczenie usług opiekuńczych, asystenckich i specjalistycznych dla 18 osób (12 kobiet, 6 mężczyzn) w miejscu zamieszkania.','Grupą docelową są osoby 60+ z gmin: Przasnysz, Jednorożec, Czernice Borowe, m. Przasnysz.'])}</div>
+<div style="border-top:1px solid var(--bdr);padding-top:1.5rem;margin-top:.5rem">
+  <p class="sub" style="margin-top:0">Realizacja celu nastąpi poprzez</p>
+  ${bul(['Zwiększenie autonomii 18 osób dzięki usługom opiekuńczym i asystenckim.','Poprawę zdrowia i jakości życia dzięki rehabilitacji i wsparciu psychologicznemu.','Zwiększenie autonomii i redukcja osamotnienia 4 osób w DDP.'])}
+</div>`)}
+
+${sb('III.','Grupa docelowa',`
+<p class="tm" style="margin-bottom:1.5rem">Osoby potrzebujące wsparcia <strong style="color:var(--fg)">60+</strong> z gmin: <strong style="color:var(--fg)">Przasnysz, Jednorożec, Czernice Borowe, m. Przasnysz</strong>, niekorzystające z analogicznego wsparcia z EFS+.</p>
+<p class="sub" style="margin-top:0">Promowane osoby z</p>
+${bul(['niepełnosprawnościami w stopniu znacznym lub umiarkowanym','niepełnosprawnością sprzężoną lub intelektualną','chorobami psychicznymi','korzystające z Programu Fundusze Europejskie na Pomoc Żywnościową 2021–2027','samotne, pobierające minimalną emeryturę'])}
+<div class="bx" style="margin-top:2rem"><p class="bx-l">Łączna liczba uczestników</p><p class="bx-v">22 osoby — 15 kobiet, 7 mężczyzn</p></div>`)}
+
+${sb('IV.','Zadania w projekcie',`
+${bul(['Opracowanie indywidualnego zakresu wsparcia na podstawie diagnozy potrzeb OPW.','Świadczenie usług opiekuńczych i asystenckich w miejscu zamieszkania.','Świadczenie specjalistycznych usług (fizjoterapeuta, psycholog, pracownik socjalny).'])}
+<div class="ddp" style="margin-top:2rem">
+  <p class="ddp-lbl">Dzienny Dom Pomocy (DDP)</p>
+  <p class="ddp-addr">ul. Królewiecka 1e, Przasnysz</p>
+  <div class="dr"><span class="dk">Godziny</span><span class="dv">dni robocze, 8h/dzień</span></div>
+  <div class="dr"><span class="dk">Czas trwania</span><span class="dv">01.06.2025 – 31.07.2026</span></div>
+</div>
+${fin('857 735,00 zł','729 074,75 zł')}`)}
+
+<div class="fsec"><p class="fsec-lbl">Rekrutacja do projektu</p><div class="fl">${fLinks(F)}</div></div>`;
+}
+
+function depresja(){
+  const PS='https://media.base44.com/images/public/69d67971d59a329e585dd5f2/c02748e27_niedladepresji.jpg';
+  return `
+<p class="ph-lbl">DOM-MED Dominika Sutnik</p>
+<h1 class="ph-h">NIE dla depresji!</h1>
+<p class="tm" style="max-width:34rem;margin-bottom:1.5rem">Program polityki zdrowotnej w zakresie profilaktyki zaburzeń depresyjnych dla dzieci i młodzieży z województwa mazowieckiego na lata 2022–2024</p>
+<div class="ph-bar"></div>
+
+<div class="sb"><h2 class="sb-t">Program dla dzieci i młodzieży w wieku 12–21 lat</h2></div>
+
+<div style="display:flex;flex-direction:column;gap:1.25rem;margin-bottom:3.5rem">
+  <p class="tm" style="line-height:1.85">Gdy mówimy „chyba mam depresję", zwykle chodzi nam o to, że jesteśmy po prostu smutni, przygnębieni, mamy spadek formy psychicznej i fizycznej. Jest to jednak stan przejściowy. Natomiast z medycznego punktu widzenia jest to zespół objawów obejmujących sferę emocjonalną, zachowanie i funkcjonowanie poznawcze.</p>
+  <p class="tm" style="line-height:1.85">Mogą jej również towarzyszyć objawy somatyczne. Według najnowszych badań zachorowalność wśród dzieci i młodzieży wzrasta. Dane epidemiologiczne różnią się nieco w zależności od źródła. W przypadku dzieci to od 0,4 do 2,5%, a wśród młodzieży wskaźniki występowania wahają się między 2 a 8%.</p>
+  <p class="tm" style="line-height:1.85">Dlatego kluczowe jest podejmowanie działań profilaktycznych mających na celu zapobieganie, wczesne wykrywanie i leczenie depresji.</p>
+</div>
+
+<div style="margin-bottom:3.5rem">
+  <p class="sub" style="margin-top:0;margin-bottom:1.5rem">Zapraszamy dzieci i młodzież wraz z rodzicami na</p>
+  ${bul(['badanie przesiewowe w kierunku wykrycia depresji','konsultacje ze specjalistą','sesje terapeutyczne','podsumowanie terapii','edukację zdrowotną'])}
+  <div class="bx-dk" style="margin-top:1.5rem">Świadczenia udzielane są <strong>nieodpłatnie</strong> i finansowane z budżetu Samorządu Województwa Mazowieckiego.</div>
+</div>
+
+<div class="cg">
+  <div class="bx">
+    <p class="bx-l">Miejsce świadczeń</p>
+    <p class="bx-v">DOM-MED Dominika Sutnik<br/>ul. Prądzyńskiego 4/34<br/>07-410 Ostrołęka</p>
+    <div style="margin-top:1.25rem"><a href="tel:500279939" class="foot-a" style="font-size:.875rem">tel. 500 279 939</a><a href="mailto:dominikasutnik@wp.pl" class="foot-a" style="font-size:.875rem">dominikasutnik@wp.pl</a></div>
+  </div>
+  <div style="border:1px solid var(--bdr);padding:1.5rem;border-radius:2px">
+    <p class="sub" style="margin-top:0;margin-bottom:1rem">Godziny przyjęć</p>
+    <div class="hrs">
+      ${[{d:'Poniedziałek',h:'14:00 – 19:00'},{d:'Wtorek',h:'14:00 – 19:00'},{d:'Środa',h:'14:00 – 20:00'},{d:'Czwartek',h:'14:00 – 19:00'},{d:'Piątek',h:'14:00 – 19:00'},{d:'Sobota',h:'14:00 – 19:00'}].map(r=>`<div class="hr-row"><span class="hd">${r.d}</span><span class="hh">${r.h}</span></div>`).join('')}
+    </div>
+  </div>
+</div>
+
+<div class="post" onclick="oLb('${PS}','Plakat programu NIE dla depresji')">
+  <img src="${PS}" alt="Plakat programu NIE dla depresji"/>
+  <p class="post-cap">Kliknij, aby powiększyć</p>
+</div>`;
+}
+
+function zapytania(){
+  const IT=[
+    {t:'Edukacja zdrowotna i promocja zdrowia psychicznego wśród dzieci i młodzieży w 2022 r. — ochrona i promocja zdrowia psychicznego dotycząca psychoedukacji dzieci i młodzieży.',f:[{l:'Zapytanie ofertowe',h:'http://dom-med.com/zapytanie1.pdf'},{l:'Formularz ofertowy',h:'http://dom-med.com/formularz1.pdf'}]},
+    {t:'Edukacja zdrowotna i promocja zdrowia psychicznego wśród dzieci i młodzieży w 2022 r. — ochrona i promocja zdrowia psychicznego dotycząca psychoedukacji rodziców/opiekunów w zakresie rozwoju i funkcjonowania dzieci i młodzieży.',f:[{l:'Zapytanie ofertowe',h:'http://dom-med.com/zapytanie2.pdf'},{l:'Formularz ofertowy',h:'http://dom-med.com/formularz2.pdf'}]},
+    {t:'Edukacja zdrowotna i promocja zdrowia psychicznego wśród dzieci i młodzieży w 2022 r. — ochrona i promocja zdrowia psychicznego dotycząca psychoedukacji dzieci, młodzieży oraz ich rodziców/opiekunów w zakresie profilaktyki uzależnień behawioralnych.',f:[{l:'Zapytanie ofertowe',h:'http://dom-med.com/zapytanie3.pdf'},{l:'Formularz ofertowy',h:'http://dom-med.com/formularz3.pdf'}]},
+  ];
+  return `
+<p class="ph-lbl">DOM-MED Dominika Sutnik</p>
+<h1 class="ph-h">Zapytania ofertowe</h1>
+<div class="ph-bar"></div>
+${IT.map((it,i)=>`<div class="zi"><div class="zh"><span class="zn">${i+1}.</span><p class="zt">${it.t}</p></div><p class="sub" style="margin-top:0">Dokumenty do pobrania</p><div class="fl">${fLinks(it.f)}</div></div>`).join('')}`;
+}
+
+function ddom(){
+  const PS='https://media.base44.com/images/public/69d67971d59a329e585dd5f2/e44b70dd0_Dziennydomopiekimedycznej.jpg';
+  const F=[{l:'Regulamin',h:'http://dom-med.com/regulamin.pdf'},{l:'Skierowanie',h:'http://dom-med.com/skierowanie.pdf'},{l:'Skala Barthel',h:'http://dom-med.com/skala.pdf'}];
+  return `
+<p class="ph-lbl">DOM-MED Dominika Sutnik</p>
+<h1 class="ph-h">Dzienny dom opieki medycznej</h1>
+<h2 style="font-family:var(--H);font-size:clamp(1.25rem,2.5vw,1.625rem);font-style:italic;color:var(--mut);margin-bottom:1rem">Dzienny Dom Opieki Medycznej</h2>
+<p style="font-family:var(--B);font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:1.5rem">TRWA REKRUTACJA!!!</p>
+<div class="ph-bar"></div>
+
+<div style="display:flex;flex-direction:column;gap:1.5rem;margin-bottom:4rem">
+  <p class="tm" style="line-height:1.85">Zapraszamy osoby dorosłe, głównie powyżej 65 roku życia, zamieszkałe na terenie województwa mazowieckiego, nie będące osobami samodzielnymi, wymagające wsparcia i opieki dziennej.</p>
+  <p class="tm" style="line-height:1.85">Osoby zakwalifikowane do DDOM przez zespół terapeutyczny otrzymają m.in. nadzór i opiekę personelu medycznego, zabiegi fizjoterapeutyczne, wsparcie psychologiczne, zajęcia terapeutyczne, logopedyczne, spotkania z dietetykiem, konsultacje z pracownikiem socjalnym.</p>
+  <div class="bx-dk">Pobyt w dziennym domu opieki medycznej i korzystanie ze świadczeń zdrowotnych oraz innych świadczonych w DDOM usług (wyżywienie, transport) w ramach projektu jest całkowicie <strong>bezpłatne</strong> i finansowane z budżetu Samorządu Województwa Mazowieckiego.</div>
+  <p class="tm" style="line-height:1.85">Do DDOM wymagane jest skierowanie wystawione przez lekarza ubezpieczenia zdrowotnego.</p>
+</div>
+
+<div class="bx" style="margin-bottom:4rem">
+  <p class="bx-l">Kontakt</p>
+  <p class="tm" style="margin-bottom:.75rem">Zachęcamy do kontaktu telefonicznego oraz osobiście w siedzibie DOM-MED w Ostrołęce.</p>
+  <a href="tel:500279939" class="foot-a" style="font-weight:600;font-size:.875rem">500-279-939</a>
+  <p class="tm">ul. Prądzyńskiego 4/30, Ostrołęka</p>
+</div>
+
+<div class="post" onclick="oLb('${PS}','Dzienny Dom Opieki Medycznej — plakat')">
+  <img src="${PS}" alt="Dzienny Dom Opieki Medycznej — plakat"/>
+  <p class="post-cap">Kliknij, aby powiększyć</p>
+</div>
+<div class="fsec"><p class="fsec-lbl">Pliki do pobrania</p><div class="fl">${fLinks(F)}</div></div>`;
+}
+
+function fizjo(){
+  const PS='https://media.base44.com/images/public/69d67971d59a329e585dd5f2/8f3072a79_fizjoterapia.jpg';
+  return `
+<p class="ph-lbl">DOM-MED Dominika Sutnik</p>
+<h1 class="ph-h">Polityka zdrowia w zakresie fizjoterapii</h1>
+<p class="tm" style="max-width:34rem;margin-bottom:1.5rem">Zapraszamy do udziału w Programie polityki zdrowotnej w zakresie fizjoterapii u Pacjentów z powikłaniami po przebytym zachorowaniu na COVID-19.</p>
+<div class="ph-bar"></div>
+
+<div style="display:flex;flex-direction:column;gap:1.25rem;margin-bottom:3.5rem">
+  <p class="tm" style="line-height:1.85">Rehabilitacja oddechowa może pomóc osobom po przebytym zakażeniu COVID-19, cierpiącym na przewlekłe choroby płuc, których objawy, takie jak duszność i łatwa męczliwość codziennie wykonywanymi czynnościami, mają istotny wpływ na ich życie.</p>
+  <p class="tm" style="line-height:1.85">Dzięki darmowej rehabilitacji po COVID-19 stopniowo zwiększysz swoją wytrzymałość, przywrócisz prawidłową funkcję mięśni i usprawnisz powrót do normalnego życia. Wczesna rehabilitacja zapobiega również rozwinięciu się dodatkowych schorzeń związanych z ograniczoną mobilnością.</p>
+</div>
+
+<div style="margin-bottom:3.5rem">
+  <p class="sub" style="margin-top:0;margin-bottom:1.5rem">Kryteria kwalifikacji do udziału w programie</p>
+  ${bul(['ukończone 18 lat','mieszkaniec województwa mazowieckiego','udzielenie świadomej zgody na udział w programie','złożenie pisemnego oświadczenia, że nie jest się aktualnie uczestnikiem innego podobnego programu finansowanego ze środków publicznych','potwierdzenie przebycia COVID-19 wynikiem badania laboratoryjnego','występowanie duszności negatywnie wpływających na aktywność uczestnika – wynik ≥ 1','kwalifikację do programu przeprowadza fizjoterapeuta'])}
+</div>
+
+<div class="bx-dk" style="margin-bottom:2.5rem"><p>Program finansowany ze środków Samorządu Województwa Mazowieckiego.</p><p style="margin-top:.25rem">Uczestnictwo w programie jest <strong>bezpłatne</strong>.</p></div>
+<div class="bx" style="margin-bottom:2.5rem"><p class="bx-l">Kontakt</p><a href="tel:500279939" class="foot-a" style="font-weight:600;font-size:.875rem">500 279 939</a></div>
+
+<div class="post" onclick="oLb('${PS}','Polityka zdrowia w zakresie fizjoterapii — plakat')">
+  <img src="${PS}" alt="Polityka zdrowia w zakresie fizjoterapii — plakat"/>
+  <p class="post-cap">Kliknij, aby powiększyć</p>
+</div>`;
+}
+</script>
+</body>
+</html>
