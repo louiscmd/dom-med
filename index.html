@@ -328,7 +328,8 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
   <nav class="nav-bar" id="nb">
     <div class="nav-row">
       <!-- WCAG button lives here so it aligns with nav links -->
-      <button id="wcag-btn" aria-label="Dostępność" onclick="toggleWcag()">
+      <div id="wcag-trigger" style="display:flex;align-items:center;gap:.5rem;cursor:pointer" onclick="toggleWcag()">
+      <button id="wcag-btn" aria-label="Dostępność" style="pointer-events:none">
         <svg viewBox="0 0 100 100" width="55%" height="55%" fill="none" stroke="#b8ada1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="40" cy="35" r="6"/>
           <path d="M40 41 C40 55, 60 55, 60 70"/>
@@ -337,6 +338,8 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
           <path d="M30 65 C40 75, 55 75, 65 65"/>
         </svg>
       </button>
+      <span style="font-family:var(--B);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b8ada1;user-select:none">WCAG</span>
+      </div>
       <!-- WCAG panel (fixed, opens below navbar) -->
       <div id="wcag-panel">
         <div class="wcag-hdr">
@@ -686,9 +689,9 @@ const MAX_FONT=2;
 function toggleWcag(){document.getElementById('wcag-panel').classList.toggle('open');}
 function closeWcag(){document.getElementById('wcag-panel').classList.remove('open');}
 document.addEventListener('click',e=>{
-  const btn=document.getElementById('wcag-btn');
+  const trigger=document.getElementById('wcag-trigger');
   const panel=document.getElementById('wcag-panel');
-  if(!btn.contains(e.target)&&!panel.contains(e.target)) panel.classList.remove('open');
+  if(!trigger.contains(e.target)&&!panel.contains(e.target)) panel.classList.remove('open');
 });
 
 function adjFont(d){
