@@ -279,48 +279,45 @@ blockquote{position:relative;z-index:1;max-width:60rem;margin:0 auto}
 .lb-x{position:absolute;top:1.25rem;right:1.25rem;color:#fff;font-size:2rem;line-height:1;padding:.25rem;background:none;border:none;cursor:pointer}
 
 /* ─── WCAG WIDGET ─────────────────────────────────────────── */
-#wcag-wrap{position:fixed;top:.75rem;left:.75rem;z-index:9000}
-#wcag-btn{width:2.75rem;height:2.75rem;border-radius:50%;background:var(--acc);color:#fff;border:2px solid rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.22);transition:transform .2s}
-#wcag-btn:hover{transform:scale(1.08)}
-#wcag-panel{display:none;position:absolute;top:3.25rem;left:0;background:#fff;border:1px solid var(--bdr);min-width:16rem;box-shadow:0 6px 24px rgba(0,0,0,.13)}
+#wcag-btn{width:2.5rem;height:2.5rem;border-radius:50%;background:transparent;border:1.5px solid var(--bdr);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--fg);transition:border-color .2s,background .2s;flex-shrink:0}
+#wcag-btn:hover{border-color:var(--fg);background:var(--sec)}
+#wcag-panel{display:none;position:fixed;top:10.25rem;left:1.5rem;background:#fff;border-radius:12px;width:19rem;box-shadow:0 8px 36px rgba(0,0,0,.16);z-index:9001;overflow:hidden}
 #wcag-panel.open{display:block}
-.wcag-head{padding:.75rem 1rem;border-bottom:1px solid var(--bdr);font-family:var(--B);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
-.wcag-opt{display:flex;align-items:center;justify-content:space-between;width:100%;padding:.7rem 1rem;font-family:var(--B);font-size:.83rem;color:var(--fg);background:none;border:none;border-bottom:1px solid var(--bdr);cursor:pointer;text-align:left;transition:background .15s}
-.wcag-opt:last-child{border-bottom:none}
-.wcag-opt:hover{background:var(--sec)}
-.wcag-opt .wcag-dot{width:.55rem;height:.55rem;border-radius:50%;background:var(--bdr);transition:background .2s;flex-shrink:0}
-.wcag-opt.on .wcag-dot{background:var(--acc)}
-.wcag-reset{width:100%;padding:.7rem 1rem;font-family:var(--B);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);background:var(--sec);border:none;border-top:1px solid var(--bdr);cursor:pointer;transition:background .2s,color .2s}
-.wcag-reset:hover{background:var(--fg);color:var(--bg)}
+.wcag-hdr{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid #eee}
+.wcag-title{font-family:var(--B);font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fg)}
+.wcag-close{background:none;border:none;cursor:pointer;color:var(--mut);font-size:1.3rem;line-height:1;padding:.1rem .3rem;transition:color .2s;font-weight:300}
+.wcag-close:hover{color:var(--fg)}
+.wcag-font-sec{padding:.875rem 1.25rem;border-bottom:1px solid #eee}
+.wcag-sub{font-family:var(--B);font-size:.78rem;color:var(--mut);margin-bottom:.625rem}
+.wcag-abc{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.wcag-abc button{padding:.55rem .25rem;border:1.5px solid #ddd;background:#fff;cursor:pointer;font-family:var(--B);font-weight:700;font-size:.9rem;transition:border-color .2s,background .2s;border-radius:6px;color:var(--fg)}
+.wcag-abc button:hover{border-color:var(--fg)}
+.wcag-abc button:disabled{opacity:.35;cursor:not-allowed}
+.wcag-rows{padding:.375rem 0}
+.wcag-row{display:flex;align-items:center;gap:.875rem;width:100%;padding:.7rem 1.25rem;font-family:var(--B);font-size:.875rem;color:var(--fg);background:none;border:none;border-bottom:1px solid #eee;cursor:pointer;text-align:left;transition:background .15s}
+.wcag-rows .wcag-row:last-child{border-bottom:none}
+.wcag-row:hover{background:#f9f7f4}
+.wcag-row.on{color:var(--acc)}
+.wi{width:1.625rem;height:1.625rem;display:flex;align-items:center;justify-content:center;border:1.5px solid #ccc;border-radius:5px;flex-shrink:0;font-size:.7rem;font-weight:700;transition:background .2s,border-color .2s}
+.wcag-row.on .wi{background:var(--acc);border-color:var(--acc);color:#fff}
+.wcag-row-reset{color:var(--mut);border-bottom:none}
+.wcag-row-reset .wi{border-color:#ddd;color:var(--mut)}
 
 /* WCAG modifiers */
-html.wa-font{font-size:120%}
+html.wa-f1{font-size:112%}
+html.wa-f2{font-size:125%}
 html.wa-contrast{--bg:#000;--fg:#fff;--sec:#111;--mut:#ccc;--acc:#ff0;--bdr:#444}
 html.wa-contrast .nav-bar.scrolled{background:rgba(0,0,0,.95)}
 html.wa-contrast .nav-eu{background:#111;border-color:#444}
-html.wa-contrast #wcag-panel{background:#111;color:#fff}
-html.wa-contrast .wcag-opt{color:#fff}
-html.wa-contrast .wcag-opt:hover{background:#222}
+html.wa-contrast #wcag-panel{background:#1a1a1a}
+html.wa-contrast .wcag-hdr,.wa-contrast .wcag-font-sec,.wa-contrast .wcag-row{border-color:#333;color:#fff}
+html.wa-contrast .wcag-abc button{background:#222;border-color:#555;color:#fff}
+html.wa-contrast .wcag-row:hover{background:#222}
 html.wa-grey *{filter:grayscale(1)}
-html.wa-links a,.wa-links button[onclick]{text-decoration:underline !important;text-underline-offset:3px}
+html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
   </style>
 </head>
 <body>
-
-<!-- ══ WCAG WIDGET ══════════════════════════════════════════ -->
-<div id="wcag-wrap">
-  <button id="wcag-btn" aria-label="Dostępność" onclick="toggleWcag()">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 22v-8m0 0l-4 4m4-4l4 4"/><path d="M8 12H5m14 0h-3"/><path d="M9 8.5C8 10 7 12 7 14m10-5.5C18 10 17 12 17 14"/></svg>
-  </button>
-  <div id="wcag-panel">
-    <p class="wcag-head">Dostępność</p>
-    <button class="wcag-opt" id="wo-font" onclick="toggleWa('font')">Powiększ czcionkę <span class="wcag-dot"></span></button>
-    <button class="wcag-opt" id="wo-contrast" onclick="toggleWa('contrast')">Wysoki kontrast <span class="wcag-dot"></span></button>
-    <button class="wcag-opt" id="wo-grey" onclick="toggleWa('grey')">Skala szarości <span class="wcag-dot"></span></button>
-    <button class="wcag-opt" id="wo-links" onclick="toggleWa('links')">Podkreśl linki <span class="wcag-dot"></span></button>
-    <button class="wcag-reset" onclick="resetWa()">Resetuj ustawienia</button>
-  </div>
-</div>
 
 <!-- ══ NAVBAR ══════════════════════════════════════════════ -->
 <div id="nav">
@@ -330,7 +327,43 @@ html.wa-links a,.wa-links button[onclick]{text-decoration:underline !important;t
   </div>
   <nav class="nav-bar" id="nb">
     <div class="nav-row">
-      <span class="nav-logo" onclick="go('home')">DOM-MED</span>
+      <!-- WCAG button lives here so it aligns with nav links -->
+      <button id="wcag-btn" aria-label="Dostępność" onclick="toggleWcag()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="1.5"/><path d="M9 9h6l1.5 5.5H8.5L10 9z"/><path d="M8.5 14.5L7 21"/><path d="M15.5 14.5L17 21"/><circle cx="8" cy="21" r="1.5"/><circle cx="16" cy="21" r="1.5"/></svg>
+      </button>
+      <!-- WCAG panel (fixed, opens below navbar) -->
+      <div id="wcag-panel">
+        <div class="wcag-hdr">
+          <span class="wcag-title">Dostępność</span>
+          <button class="wcag-close" onclick="closeWcag()" aria-label="Zamknij">×</button>
+        </div>
+        <div class="wcag-font-sec">
+          <p class="wcag-sub">Rozmiar tekstu</p>
+          <div class="wcag-abc">
+            <button id="wa-am" onclick="adjFont(-1)">A−</button>
+            <button id="wa-a0" onclick="adjFont(0)">A</button>
+            <button id="wa-ap" onclick="adjFont(1)">A+</button>
+          </div>
+        </div>
+        <div class="wcag-rows">
+          <button class="wcag-row" id="wo-contrast" onclick="toggleWa('contrast')">
+            <span class="wi"><svg width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12 2a10 10 0 0 1 0 20V2z" fill="currentColor"/></svg></span>
+            Wysoki kontrast
+          </button>
+          <button class="wcag-row" id="wo-grey" onclick="toggleWa('grey')">
+            <span class="wi" style="font-size:.65rem;letter-spacing:-.03em">Aa</span>
+            Skala szarości
+          </button>
+          <button class="wcag-row" id="wo-links" onclick="toggleWa('links')">
+            <span class="wi" style="text-decoration:underline;font-size:.85rem">U</span>
+            Podkreśl linki
+          </button>
+          <button class="wcag-row wcag-row-reset" onclick="resetWa()">
+            <span class="wi">↺</span>
+            Resetuj ustawienia
+          </button>
+        </div>
+      </div>
       <div class="nav-links">
         <a class="pill" onclick="go('projekty')">Projekty</a>
         <a onclick="go('home')">Strona główna</a>
@@ -640,24 +673,47 @@ function oLb(s,a){ document.getElementById('lbi').src=s; document.getElementById
 function cLb(){ document.getElementById('lb').classList.remove('open'); }
 
 /* ── WCAG ──────────────────────────────────────────────── */
-const WA_FEATS=['font','contrast','grey','links'];
+const WA_TOGGLES=['contrast','grey','links'];
+let fontLvl=0;
+const MAX_FONT=2;
+
 function toggleWcag(){document.getElementById('wcag-panel').classList.toggle('open');}
+function closeWcag(){document.getElementById('wcag-panel').classList.remove('open');}
 document.addEventListener('click',e=>{
-  const w=document.getElementById('wcag-wrap');
-  if(!w.contains(e.target)) document.getElementById('wcag-panel').classList.remove('open');
+  const btn=document.getElementById('wcag-btn');
+  const panel=document.getElementById('wcag-panel');
+  if(!btn.contains(e.target)&&!panel.contains(e.target)) panel.classList.remove('open');
 });
+
+function adjFont(d){
+  if(d===0){fontLvl=0;}
+  else{fontLvl=Math.max(0,Math.min(MAX_FONT,fontLvl+d));}
+  for(let i=1;i<=MAX_FONT;i++) document.documentElement.classList.remove('wa-f'+i);
+  if(fontLvl>0) document.documentElement.classList.add('wa-f'+fontLvl);
+  document.getElementById('wa-am').disabled=fontLvl===0;
+  document.getElementById('wa-ap').disabled=fontLvl===MAX_FONT;
+  saveWa();
+}
+
 function toggleWa(f){
   document.documentElement.classList.toggle('wa-'+f);
   document.getElementById('wo-'+f)?.classList.toggle('on',document.documentElement.classList.contains('wa-'+f));
   saveWa();
 }
 function resetWa(){
-  WA_FEATS.forEach(f=>{document.documentElement.classList.remove('wa-'+f);document.getElementById('wo-'+f)?.classList.remove('on');});
+  fontLvl=0; adjFont(0);
+  WA_TOGGLES.forEach(f=>{document.documentElement.classList.remove('wa-'+f);document.getElementById('wo-'+f)?.classList.remove('on');});
   localStorage.removeItem('wcag');
 }
-function saveWa(){localStorage.setItem('wcag',JSON.stringify(WA_FEATS.filter(f=>document.documentElement.classList.contains('wa-'+f))));}
+function saveWa(){
+  localStorage.setItem('wcag',JSON.stringify({lvl:fontLvl,on:WA_TOGGLES.filter(f=>document.documentElement.classList.contains('wa-'+f))}));
+}
 function loadWa(){
-  try{JSON.parse(localStorage.getItem('wcag')||'[]').forEach(f=>{document.documentElement.classList.add('wa-'+f);document.getElementById('wo-'+f)?.classList.add('on');});}catch(e){}
+  try{
+    const s=JSON.parse(localStorage.getItem('wcag')||'{}');
+    if(s.lvl){fontLvl=s.lvl;adjFont(0);}
+    (s.on||[]).forEach(f=>{document.documentElement.classList.add('wa-'+f);document.getElementById('wo-'+f)?.classList.add('on');});
+  }catch(e){}
 }
 
 /* ── INIT ──────────────────────────────────────────────── */
