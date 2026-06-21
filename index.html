@@ -13,12 +13,12 @@
   <style>
 /* ─── TOKENS ──────────────────────────────────────────────── */
 :root {
-  --bg:   hsl(38,30%,97%);
-  --fg:   hsl(22,15%,12%);
-  --sec:  hsl(38,25%,93%);
-  --mut:  hsl(22,10%,44%);
-  --acc:  hsl(349,28%,72%);
-  --bdr:  hsl(38,18%,82%);
+  --bg:   #ffffff;
+  --fg:   hsl(145,10%,11%);
+  --sec:  hsl(138,30%,95%);
+  --mut:  hsl(145,5%,44%);
+  --acc:  hsl(145,38%,50%);
+  --bdr:  hsl(138,18%,84%);
   --H:    "Cormorant Garamond", Georgia, serif;
   --B:    "Inter", system-ui, sans-serif;
 }
@@ -48,7 +48,7 @@ button{border:none;background:none;cursor:pointer;font-family:var(--B)}
 @media(min-width:768px){.nav-eu img{height:5rem}}
 
 .nav-bar{transition:background .4s}
-.nav-bar.scrolled{background:rgba(249,246,241,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--bdr)}
+.nav-bar.scrolled{background:rgba(255,255,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--bdr)}
 .nav-row{max-width:1280px;margin:0 auto;padding:0 1.5rem;height:5rem;display:flex;align-items:center;justify-content:space-between}
 @media(min-width:768px){.nav-row{padding:0 3rem}}
 @media(min-width:1280px){.nav-row{padding:0 5rem}}
@@ -56,9 +56,9 @@ button{border:none;background:none;cursor:pointer;font-family:var(--B)}
 .nav-links{display:none;align-items:center;gap:3.5rem}
 @media(min-width:768px){.nav-links{display:flex}}
 .nav-links a{font-family:var(--B);font-size:.78rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);transition:color .2s;cursor:pointer;white-space:nowrap}
-.nav-links a:hover{color:var(--fg)}
-.nav-links a.pill{border:1px solid var(--fg);padding:.625rem 1.75rem;color:var(--fg);transition:background .25s,color .25s}
-.nav-links a.pill:hover{background:var(--fg);color:var(--bg)}
+.nav-links a:hover{color:var(--acc)}
+.nav-links a.pill{border:1px solid var(--acc);padding:.625rem 1.75rem;color:var(--acc);transition:background .25s,color .25s}
+.nav-links a.pill:hover{background:var(--acc);color:#fff}
 .nav-mob{display:flex}
 @media(min-width:768px){.nav-mob{display:none}}
 .nav-mob button{color:var(--fg);display:flex;align-items:center}
@@ -66,8 +66,8 @@ button{border:none;background:none;cursor:pointer;font-family:var(--B)}
 /* ── MOBILE OVERLAY ──────────────────────────────────────── */
 .mob{display:none;position:fixed;inset:0;z-index:150;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;gap:1.5rem}
 .mob.open{display:flex}
-.mob a{font-family:var(--B);font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--fg);border:1px solid var(--fg);padding:.75rem 2rem;width:14rem;text-align:center;cursor:pointer;transition:background .2s,color .2s}
-.mob a:hover,.mob a.active{background:var(--fg);color:var(--bg)}
+.mob a{font-family:var(--B);font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc);padding:.75rem 2rem;width:14rem;text-align:center;cursor:pointer;transition:background .2s,color .2s}
+.mob a:hover,.mob a.active{background:var(--acc);color:#fff}
 .mob a.acc{border-color:var(--acc);color:var(--acc)}
 .mob a.acc:hover{background:var(--acc);color:var(--bg)}
 
@@ -86,16 +86,16 @@ button{border:none;background:none;cursor:pointer;font-family:var(--B)}
 @media(min-width:768px){.h-tag{font-size:1.0625rem}}
 
 .h-ctas{display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center;margin-top:3rem}
-.btn-circ{display:inline-flex;align-items:center;justify-content:center;width:8rem;height:8rem;border-radius:50%;border:1px solid var(--fg);color:var(--fg);font-family:var(--B);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;flex-shrink:0;transition:background .4s,color .4s;cursor:pointer}
+.btn-circ{display:inline-flex;align-items:center;justify-content:center;width:8rem;height:8rem;border-radius:50%;border:1.5px solid var(--acc);color:var(--acc);font-family:var(--B);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;flex-shrink:0;transition:background .4s,color .4s;cursor:pointer}
 @media(min-width:768px){.btn-circ{width:10rem;height:10rem}}
-.btn-circ:hover{background:var(--fg);color:var(--bg)}
+.btn-circ:hover{background:var(--acc);color:#fff}
 .btn-ul{font-family:var(--B);font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);text-decoration:underline;text-underline-offset:4px;cursor:pointer;transition:color .2s;background:none;border:none;padding:0}
-.btn-ul:hover{color:var(--fg)}
+.btn-ul:hover{color:var(--acc)}
 
-.h-img{position:relative;overflow:hidden;max-width:22rem;margin:0 auto;max-height:65vw}
+.h-img{position:relative;overflow:hidden;max-width:22rem;margin:0 auto;max-height:65vw;box-shadow:10px 10px 0 0 hsl(138,30%,85%)}
 @media(min-width:1024px){.h-img{max-width:none;max-height:none;aspect-ratio:3/4}}
 .h-img img{width:100%;height:100%;object-fit:cover;object-position:top center}
-.h-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(247,243,238,.3),transparent);pointer-events:none}
+.h-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(79,176,119,.06),transparent);pointer-events:none}
 
 /* ═══════════════════════════════════════════════════════════
    HOME – SERVICES
@@ -105,9 +105,11 @@ button{border:none;background:none;cursor:pointer;font-family:var(--B)}
 @media(min-width:768px){.svcs-g{grid-template-columns:repeat(3,1fr);gap:1.5rem}}
 @media(min-width:1280px){.svcs-g{gap:3rem}}
 .svc{display:flex;flex-direction:column;cursor:default}
-.svc-img{aspect-ratio:3/4;overflow:hidden;margin-bottom:1.5rem}
+.svc-img{aspect-ratio:3/4;overflow:hidden;margin-bottom:1.5rem;position:relative}
 .svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
 .svc:hover .svc-img img{transform:scale(1.06)}
+.svc-img::after{content:'';position:absolute;inset:0;border:2px solid var(--acc);opacity:0;transition:opacity .4s;pointer-events:none}
+.svc:hover .svc-img::after{opacity:.5}
 .svc-n{font-family:var(--H);font-size:3rem;font-style:italic;line-height:1;margin-bottom:.75rem;color:var(--bdr);transition:color .35s}
 .svc:hover .svc-n{color:var(--acc)}
 .svc-ttl{font-family:var(--H);font-size:1.625rem;font-style:italic;color:var(--fg);margin-bottom:.75rem}
@@ -147,7 +149,7 @@ blockquote{position:relative;z-index:1;max-width:60rem;margin:0 auto}
 .f-in:focus,.f-sel:focus,.f-ta:focus{box-shadow:0 0 0 1px var(--acc)}
 .f-ta{resize:vertical;min-height:6.5rem}
 .f-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23776c63' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
-.f-btn{width:100%;background:var(--fg);color:var(--bg);font-family:var(--B);font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:1rem;border:none;cursor:pointer;transition:opacity .2s}
+.f-btn{width:100%;background:var(--acc);color:#fff;font-family:var(--B);font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:1rem;border:none;cursor:pointer;transition:opacity .2s}
 .f-btn:hover{opacity:.85}
 .f-btn:disabled{opacity:.6;cursor:wait}
 .f-note{font-family:var(--B);font-size:.7rem;color:var(--mut);line-height:1.6}
@@ -281,7 +283,7 @@ blockquote{position:relative;z-index:1;max-width:60rem;margin:0 auto}
 .lb-x{position:absolute;top:1.25rem;right:1.25rem;color:#fff;font-size:2rem;line-height:1;padding:.25rem;background:none;border:none;cursor:pointer}
 
 /* ─── WCAG WIDGET ─────────────────────────────────────────── */
-#wcag-btn{width:2.75rem;height:2.75rem;border-radius:50%;background:transparent;border:2px solid #b8ada1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .2s,transform .2s;flex-shrink:0}
+#wcag-btn{width:2.75rem;height:2.75rem;border-radius:50%;background:transparent;border:2px solid #8aba99;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .2s,transform .2s;flex-shrink:0}
 #wcag-btn:hover{opacity:.75;transform:scale(1.05)}
 #wcag-panel{display:none;position:fixed;top:10.25rem;left:1.5rem;background:#fff;border-radius:12px;width:19rem;box-shadow:0 8px 36px rgba(0,0,0,.16);z-index:9001;overflow:hidden}
 #wcag-panel.open{display:block}
@@ -298,7 +300,7 @@ blockquote{position:relative;z-index:1;max-width:60rem;margin:0 auto}
 .wcag-rows{padding:.375rem 0}
 .wcag-row{display:flex;align-items:center;gap:.875rem;width:100%;padding:.7rem 1.25rem;font-family:var(--B);font-size:.875rem;color:var(--fg);background:none;border:none;border-bottom:1px solid #eee;cursor:pointer;text-align:left;transition:background .15s}
 .wcag-rows .wcag-row:last-child{border-bottom:none}
-.wcag-row:hover{background:#f9f7f4}
+.wcag-row:hover{background:#f0f7f3}
 .wcag-row.on{color:var(--acc)}
 .wi{width:1.625rem;height:1.625rem;display:flex;align-items:center;justify-content:center;border:1.5px solid #ccc;border-radius:5px;flex-shrink:0;font-size:.7rem;font-weight:700;transition:background .2s,border-color .2s}
 .wcag-row.on .wi{background:var(--acc);border-color:var(--acc);color:#fff}
@@ -332,7 +334,7 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
       <!-- WCAG button lives here so it aligns with nav links -->
       <div id="wcag-trigger" style="display:flex;align-items:center;gap:.5rem;cursor:pointer" onclick="toggleWcag()">
       <button id="wcag-btn" aria-label="Dostępność" style="pointer-events:none">
-        <svg viewBox="0 0 100 100" width="55%" height="55%" fill="none" stroke="#b8ada1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="55%" height="55%" fill="none" stroke="#8aba99" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="40" cy="35" r="6"/>
           <path d="M40 41 C40 55, 60 55, 60 70"/>
           <path d="M45 50 L60 45"/>
@@ -340,7 +342,7 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
           <path d="M30 65 C40 75, 55 75, 65 65"/>
         </svg>
       </button>
-      <span style="font-family:var(--B);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b8ada1;user-select:none">WCAG</span>
+      <span style="font-family:var(--B);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8aba99;user-select:none">WCAG</span>
       </div>
       <!-- WCAG panel (fixed, opens below navbar) -->
       <div id="wcag-panel">
