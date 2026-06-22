@@ -24,7 +24,7 @@
 }
 /* ─── RESET ───────────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;font-size:18px}
 body{background:var(--bg);color:var(--fg);font-family:var(--B);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
@@ -178,11 +178,11 @@ blockquote{position:relative;z-index:1;max-width:60rem;margin:0 auto}
 ═══════════════════════════════════════════════════════════ */
 #page-projekty{min-height:100svh;display:none;flex-direction:column}
 #page-projekty.on{display:flex}
-.p-main{flex:1;padding-top:13rem;padding-bottom:6rem}
+.p-main{flex:1;padding-top:13rem;padding-bottom:6rem;text-align:center}
 @media(min-width:768px){.p-main{padding-top:16rem}}
 .p-inner{max-width:42rem;margin:0 auto;padding:0 1.5rem;display:flex;flex-direction:column;align-items:center;gap:1.25rem}
-.p-tag{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:.5rem}
-.p-title{font-family:var(--H);font-size:clamp(2.75rem,6vw,3.75rem);font-style:italic;color:var(--fg);margin-bottom:2.5rem;text-align:center}
+.p-tag{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:.5rem;padding:0 1.5rem}
+.p-title{font-family:var(--H);font-size:clamp(3rem,14vw,10rem);font-style:italic;color:var(--fg);margin-bottom:2.5rem;text-align:center;line-height:1;padding:0 .5rem}
 .pill{display:block;width:100%;text-align:center;font-family:var(--B);font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--fg);border-radius:9999px;padding:1rem 2rem;color:var(--fg);transition:background .25s,color .25s;cursor:pointer;background:none}
 .pill:hover{background:var(--fg);color:var(--bg)}
 .pill.acc{border-color:var(--acc);color:var(--acc)}
@@ -288,17 +288,17 @@ blockquote{position:relative;z-index:1;max-width:60rem;margin:0 auto}
 #wcag-panel{display:none;position:fixed;top:10.25rem;left:1.5rem;background:#fff;border-radius:12px;width:19rem;box-shadow:0 8px 36px rgba(0,0,0,.16);z-index:9001;overflow:hidden}
 #wcag-panel.open{display:block}
 .wcag-hdr{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid #eee}
-.wcag-title{font-family:var(--B);font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fg)}
+.wcag-title{font-family:var(--B);font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fg)}
 .wcag-close{background:none;border:none;cursor:pointer;color:var(--mut);font-size:1.3rem;line-height:1;padding:.1rem .3rem;transition:color .2s;font-weight:300}
 .wcag-close:hover{color:var(--fg)}
 .wcag-font-sec{padding:.875rem 1.25rem;border-bottom:1px solid #eee}
-.wcag-sub{font-family:var(--B);font-size:.78rem;color:var(--mut);margin-bottom:.625rem}
+.wcag-sub{font-family:var(--B);font-size:.9rem;color:var(--mut);margin-bottom:.625rem}
 .wcag-abc{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
-.wcag-abc button{padding:.55rem .25rem;border:1.5px solid #ddd;background:#fff;cursor:pointer;font-family:var(--B);font-weight:700;font-size:.9rem;transition:border-color .2s,background .2s;border-radius:6px;color:var(--fg)}
+.wcag-abc button{padding:.55rem .25rem;border:1.5px solid #ddd;background:#fff;cursor:pointer;font-family:var(--B);font-weight:700;font-size:1.05rem;transition:border-color .2s,background .2s;border-radius:6px;color:var(--fg)}
 .wcag-abc button:hover{border-color:var(--fg)}
 .wcag-abc button:disabled{opacity:.35;cursor:not-allowed}
 .wcag-rows{padding:.375rem 0}
-.wcag-row{display:flex;align-items:center;gap:.875rem;width:100%;padding:.7rem 1.25rem;font-family:var(--B);font-size:.875rem;color:var(--fg);background:none;border:none;border-bottom:1px solid #eee;cursor:pointer;text-align:left;transition:background .15s}
+.wcag-row{display:flex;align-items:center;gap:.875rem;width:100%;padding:.7rem 1.25rem;font-family:var(--B);font-size:1rem;color:var(--fg);background:none;border:none;border-bottom:1px solid #eee;cursor:pointer;text-align:left;transition:background .15s}
 .wcag-rows .wcag-row:last-child{border-bottom:none}
 .wcag-row:hover{background:#f0f7f3}
 .wcag-row.on{color:var(--acc)}
@@ -342,7 +342,7 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
           <path d="M30 65 C40 75, 55 75, 65 65"/>
         </svg>
       </button>
-      <span style="font-family:var(--B);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8aba99;user-select:none">WCAG</span>
+      <span style="font-family:var(--B);font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8aba99;user-select:none">WCAG</span>
       </div>
       <!-- WCAG panel (fixed, opens below navbar) -->
       <div id="wcag-panel">
@@ -562,9 +562,9 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
 ══════════════════════════════════════════════════════════ -->
 <div id="page-projekty">
   <main class="p-main">
+    <p class="p-tag">DOM-MED</p>
+    <h1 class="p-title">Projekty</h1>
     <div class="p-inner">
-      <p class="p-tag">DOM-MED</p>
-      <h1 class="p-title">Projekty</h1>
       <button class="pill acc" onclick="go('home')">Strona główna</button>
       <button class="pill" onclick="go('razem')">Razem w codzienności</button>
       <button class="pill" onclick="go('codzienna')">Codzienna Opieka (Przasnysz Dom Med)</button>
