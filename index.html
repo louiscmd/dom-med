@@ -228,7 +228,7 @@ blockquote{position:relative;z-index:1;max-width:60rem;margin:0 auto}
 .bx{background:var(--sec);padding:1.25rem;border-radius:2px;margin-bottom:1.5rem}
 .bx-l{font-family:var(--B);font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:.25rem}
 .bx-v{font-family:var(--B);font-size:.875rem;color:var(--fg)}
-.bx-dk{background:var(--fg);color:var(--bg);padding:1.25rem 1.5rem;border-radius:2px;font-family:var(--B);font-size:.875rem;line-height:1.75;margin-bottom:1.5rem}
+.bx-dk{background:var(--acc);color:#fff;padding:1.25rem 1.5rem;border-radius:2px;font-family:var(--B);font-size:.875rem;line-height:1.75;margin-bottom:1.5rem}
 .bx-dk strong{font-weight:600}
 
 .ddp{background:var(--sec);padding:1.25rem 1.5rem;border-radius:2px;margin-bottom:2rem}
@@ -384,6 +384,7 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
         <a onclick="sc('o-nas')">O nas</a>
         <a onclick="sc('reg')">Rejestracja</a>
         <a onclick="sc('foot')">Kontakt</a>
+        <a onclick="go('zapytania')">Zapytania ofertowe</a>
       </div>
       <div class="nav-mob">
         <button onclick="togM()" id="mb-btn" aria-label="Menu">
@@ -402,6 +403,7 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
   <a onclick="sc('o-nas');cM()">O nas</a>
   <a onclick="sc('reg');cM()">Rejestracja</a>
   <a onclick="sc('foot');cM()">Kontakt</a>
+  <a onclick="go('zapytania');cM()">Zapytania ofertowe</a>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -570,7 +572,6 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
       <button class="pill" onclick="go('razem')">Razem w codzienności</button>
       <button class="pill" onclick="go('codzienna')">Codzienna Opieka (Przasnysz Dom Med)</button>
       <button class="pill" onclick="go('depresja')">NIE dla depresji!</button>
-      <button class="pill" onclick="go('zapytania')">Zapytania ofertowe</button>
       <button class="pill" onclick="go('ddom')">Dzienny dom opieki medycznej</button>
       <button class="pill" onclick="go('fizjo')">Polityka zdrowia w zakresie fizjoterapii</button>
     </div>
