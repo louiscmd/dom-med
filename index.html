@@ -575,6 +575,7 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
       <button class="pill" onclick="go('ddom')">Dzienny dom opieki medycznej</button>
       <button class="pill" onclick="go('fizjo')">Polityka zdrowia w zakresie fizjoterapii</button>
       <button class="pill acc" onclick="go('ostroleka')">Utworzenie MDOM w Ostrołęce</button>
+      <button class="pill acc" onclick="go('przasnysz')">Utworzenie MDOM w Przasnyszu</button>
     </div>
   </main>
   <footer class="foot">
@@ -637,8 +638,8 @@ const sb=(n,t,b)=>`<div class="sb"><div class="sb-hdr"><span class="sb-n">${n}</
 const fin=(a,b)=>`<div class="fin"><div class="fin-d"><p class="fin-lbl">Wartość projektu</p><p class="fin-amt">${a}</p></div><div class="fin-l"><p class="fin-lbl">Wkład Funduszy Europejskich</p><p class="fin-amt">${b}</p></div></div>`;
 
 /* ── ROUTING ───────────────────────────────────────────── */
-const PROJ_PAGES = new Set(['razem','codzienna','depresja','zapytania','ddom','fizjo','ostroleka']);
-const renderers  = {razem,codzienna,depresja,zapytania,ddom,fizjo,ostroleka};
+const PROJ_PAGES = new Set(['razem','codzienna','depresja','zapytania','ddom','fizjo','ostroleka','przasnysz']);
+const renderers  = {razem,codzienna,depresja,zapytania,ddom,fizjo,ostroleka,przasnysz};
 
 function go(p){
   // hide all
@@ -945,6 +946,65 @@ function fizjo(){
   <img src="${PS}" alt="Polityka zdrowia w zakresie fizjoterapii — plakat"/>
   <p class="post-cap">Kliknij, aby powiększyć</p>
 </div>`;
+}
+
+function przasnysz(){
+  const F=[
+    {l:'Regulamin rekrutacji i uczestnictwa w projekcie',h:'docs/przasnysz/regulamin.docx'},
+    {l:'Formularz zgłoszeniowy do projektu',h:'docs/przasnysz/zalacznik-1.docx'},
+    {l:'Umowa uczestnictwa w projekcie',h:'docs/przasnysz/zalacznik-3.docx'},
+    {l:'Umowa uczestnictwa w projekcie dla opiekuna faktycznego',h:'docs/przasnysz/zalacznik-4.docx'},
+    {l:'Skierowanie do MDOM',h:'docs/przasnysz/zalacznik-5.docx'},
+  ];
+  return `
+<p class="ph-lbl">DOM-MED Dominika Sutnik</p>
+<h1 class="ph-h">„Utworzenie MDOM w Przasnyszu"</h1>
+<div class="ph-bar"></div>
+
+${sb('I.','Informacje ogólne',`
+<p class="tm" style="margin-bottom:1rem">DOM-MED Dominika Sutnik realizuje projekt pt. <em>„Utworzenie MDOM w Przasnyszu"</em>. Projekt jest współfinansowany z Europejskiego Funduszu Społecznego Plus w ramach:</p>
+<ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
+  <li class="tm acc-bdr">Priorytet VIII — Fundusze Europejskie dla aktywnej integracji oraz rozwoju usług społecznych i zdrowotnych na Mazowszu</li>
+  <li class="tm acc-bdr">Działanie 8.5 — Usługi społeczne i zdrowotne, Program Fundusze Europejskie dla Mazowsza 2021–2027</li>
+</ul>
+<div class="bx"><p class="bx-l">Nr umowy o dofinansowanie</p><p class="bx-v">FEMA.08.05-IP.01-0A1J/25</p></div>`)}
+
+${sb('II.','Cel główny projektu',`
+<p class="tm" style="margin-bottom:1.25rem">Wzrost dostępności do usług społecznych i zdrowotnych:</p>
+${bul([
+  'dla 28 osób powyżej 60 r.ż. zagrożonych ubóstwem lub wykluczeniem społecznym',
+  'posiadających diagnozę choroby/zespołu otępiennego',
+  'będących mieszkańcami powiatu przasnyskiego (17 kobiet, 11 mężczyzn)',
+  'oraz ich opiekunów faktycznych',
+])}
+<p class="tm" style="margin-top:1.25rem">do <strong>31.12.2028 r.</strong> poprzez utworzenie 20 miejsc świadczenia ww. usług w społeczności lokalnej.</p>`)}
+
+${sb('III.','Grupa docelowa',`
+<p class="tm" style="margin-bottom:1.25rem">Grupę docelową projektu stanowią mieszkańcy powiatu przasnyskiego, którzy ukończyli 60 r.ż., mają zdiagnozowaną chorobę otępienną/zespoły otępienne i wymagają opieki dziennej, nie korzystają z innego wsparcia dla osób z chorobami otępiennymi w formie dziennej finansowanej z NFZ lub innych środków publicznych.</p>
+<p class="tm" style="margin-bottom:1.25rem">Grupę docelową projektu stanowią również opiekunowie faktyczni osób ze zdiagnozowaną chorobą otępienną/zespołami otępiennymi. Łącznie w projekcie obejmiemy wsparciem <strong>21 opiekunów faktycznych</strong>.</p>
+<div class="bx" style="margin-top:1.5rem"><p class="bx-l">Liczba uczestników</p><p class="bx-v">28 osób — 17 kobiet, 11 mężczyzn</p></div>`)}
+
+${sb('IV.','Zadania w projekcie',`
+${bul([
+  'Kwalifikacja, opracowanie indywidualnych planów opieki dla uczestników projektu i ich ewaluacja.',
+  'Świadczenie usług zdrowotnych i społecznych dla pacjentów w ramach pobytu w MDOM.',
+  'Świadczenie usług dodatkowych dla pacjentów w ramach pobytu w MDOM.',
+  'Świadczenie usług dla opiekunów faktycznych.',
+  'Przygotowanie MDOM-u do uruchomienia wsparcia.',
+])}
+<div class="ddp" style="margin-top:2rem">
+  <p class="ddp-lbl">Mazowiecki Dom Opieki Medycznej (MDOM)</p>
+  <p class="ddp-addr">ul. Królewiecka 1E, Przasnysz</p>
+  <div class="dr"><span class="dk">Usługi</span><span class="dv">medyczne, opiekuńcze, terapeutyczne, rehabilitacja, integracja, rekreacja</span></div>
+  <div class="dr"><span class="dk">Personel</span><span class="dv">lekarz, opiekunka, fizjoterapeuta, pielęgniarka, pracownik socjalny, psycholog, terapeuta zajęciowy</span></div>
+  <div class="dr"><span class="dk">Godziny</span><span class="dv">dni robocze, 9h/dzień</span></div>
+  <div class="dr"><span class="dk">Czas trwania</span><span class="dv">01.07.2026 – 31.12.2028</span></div>
+</div>
+${fin('3 939 843,08 zł','3 348 866,62 zł')}`)}
+
+${sb('V.','Rekrutacja do projektu',`
+<p class="tm" style="margin-bottom:1.5rem">Rekrutacja potrwa do <strong>12.06.2026</strong>. Po tej dacie będą przyjmowane zgłoszenia do projektu, a rekrutacja będzie mieć charakter uzupełniający.</p>
+<div class="fsec" style="margin-top:0;padding-top:0;border-top:none"><div class="fl">${fLinks(F)}</div></div>`)}`;
 }
 
 function ostroleka(){
