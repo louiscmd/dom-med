@@ -569,6 +569,8 @@ html.wa-links a{text-decoration:underline !important;text-underline-offset:3px}
     <h1 class="p-title">Projekty</h1>
     <div class="p-inner">
       <button class="pill acc" onclick="go('home')">Strona główna</button>
+      <button class="pill acc" onclick="go('makowski')">Hospicjum domowe w powiecie makowskim</button>
+      <button class="pill acc" onclick="go('ostrolecki')">Hospicjum domowe w powiecie ostrołęckim</button>
       <button class="pill acc" onclick="go('ostroleka')">Utworzenie MDOM w Ostrołęce</button>
       <button class="pill acc" onclick="go('przasnysz')">Utworzenie MDOM w Przasnyszu</button>
       <button class="pill" onclick="go('razem')">Razem w codzienności</button>
@@ -638,8 +640,8 @@ const sb=(n,t,b)=>`<div class="sb"><div class="sb-hdr"><span class="sb-n">${n}</
 const fin=(a,b)=>`<div class="fin"><div class="fin-d"><p class="fin-lbl">Wartość projektu</p><p class="fin-amt">${a}</p></div><div class="fin-l"><p class="fin-lbl">Wkład Funduszy Europejskich</p><p class="fin-amt">${b}</p></div></div>`;
 
 /* ── ROUTING ───────────────────────────────────────────── */
-const PROJ_PAGES = new Set(['razem','codzienna','depresja','zapytania','ddom','fizjo','ostroleka','przasnysz']);
-const renderers  = {razem,codzienna,depresja,zapytania,ddom,fizjo,ostroleka,przasnysz};
+const PROJ_PAGES = new Set(['razem','codzienna','depresja','zapytania','ddom','fizjo','ostroleka','przasnysz','makowski','ostrolecki']);
+const renderers  = {razem,codzienna,depresja,zapytania,ddom,fizjo,ostroleka,przasnysz,makowski,ostrolecki};
 
 function go(p){
   // hide all
@@ -946,6 +948,134 @@ function fizjo(){
   <img src="${PS}" alt="Polityka zdrowia w zakresie fizjoterapii — plakat"/>
   <p class="post-cap">Kliknij, aby powiększyć</p>
 </div>`;
+}
+
+function makowski(){
+  return `
+<p class="ph-lbl">DOM-MED Dominika Sutnik</p>
+<h1 class="ph-h">Hospicjum domowe w powiecie makowskim</h1>
+<div class="ph-bar"></div>
+
+${sb('I.','Informacje ogólne',`
+<p class="tm" style="margin-bottom:1rem">DOM-MED Dominika Sutnik realizuje projekt <em>„Hospicjum domowe w powiecie makowskim"</em>. Projekt jest współfinansowany z Europejskiego Funduszu Społecznego Plus w ramach:</p>
+<ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
+  <li class="tm acc-bdr">Priorytet VIII — Fundusze Europejskie dla aktywnej integracji oraz rozwoju usług społecznych i zdrowotnych na Mazowszu</li>
+  <li class="tm acc-bdr">Działanie 8.5 — Usługi społeczne i zdrowotne, Program Fundusze Europejskie dla Mazowsza 2021–2027</li>
+</ul>
+<div class="bx" style="margin-bottom:1rem"><p class="bx-l">Nr umowy o dofinansowanie</p><p class="bx-v">FEMA.08.05-IP.01-07ZK/25</p></div>
+<div class="bx"><p class="bx-l">Czas realizacji</p><p class="bx-v">01.12.2025 – 31.12.2028</p></div>
+<p class="tm" style="margin-top:1.5rem">Projekt realizowany jest w partnerstwie z <strong>Fundacją Zdrowie i Ty</strong>.</p>`)}
+
+${sb('II.','Cel projektu',`
+<p class="tm" style="margin-bottom:1.25rem">Celem projektu jest zwiększenie dostępu do domowej opieki hospicyjnej dla dorosłych mieszkańców powiatu makowskiego chorujących przewlekle lub terminalnie. Dzięki temu osoby chore mogą pozostać w swoim domu, blisko rodziny i znajomego otoczenia, a jednocześnie otrzymać profesjonalną pomoc medyczną i społeczną.</p>
+${fin('5 116 963,41 zł','4 349 418,90 zł')}`)}
+
+${sb('III.','Co oferuje projekt',`
+<p class="tm" style="margin-bottom:1rem;font-weight:600;color:var(--fg)">Opieka nad pacjentem</p>
+${bul([
+  'Indywidualna diagnoza potrzeb chorego i jego rodziny, przygotowanie indywidualnego planu opieki i jego regularna aktualizacja.',
+  'Wizyty lekarza, pielęgniarki, fizjoterapeuty, psychologa, dietetyka i pracownika socjalnego.',
+  'Pomoc opiekuna środowiskowego w codziennych czynnościach.',
+  'Dostęp do niezbędnego sprzętu medycznego.',
+  'Wsparcie organizacyjne i transport do placówek zdrowia w razie potrzeby.',
+])}
+<p class="tm" style="margin:1.25rem 0 1rem;font-weight:600;color:var(--fg)">Wsparcie dla rodzin i opiekunów</p>
+${bul([
+  'Instruktaże i szkolenia z opieki nad osobą chorą.',
+  'Konsultacje psychologiczne i grupy wsparcia.',
+  'Opieka wytchnieniowa — czasowa pomoc w opiece nad chorym.',
+])}
+<p class="tm" style="margin:1.25rem 0 1rem;font-weight:600;color:var(--fg)">Wsparcie dla personelu opiekuńczego</p>
+${bul([
+  'Konsultacje psychologiczne dla opiekunów środowiskowych i pracownika socjalnego.',
+  'Działania pomagające radzić sobie ze stresem i zapobiegać wypaleniu zawodowemu.',
+])}
+<p class="tm" style="margin-top:1.25rem">Opieka jest <strong>bezpłatna</strong>. Nie obejmuje finansowania leków.</p>`)}
+
+${sb('IV.','Kto może wziąć udział',`
+<p class="tm" style="margin-bottom:1rem">Uczestnikiem może być osoba, która:</p>
+${bul([
+  'Ma ukończone 18 lat.',
+  'Mieszka w powiecie makowskim.',
+  'Ma chorobę wymagającą opieki hospicyjnej lub paliatywnej.',
+  'Nie wymaga całodobowej opieki w placówce stacjonarnej.',
+  'Nie korzysta równocześnie z hospicjum domowego finansowanego przez NFZ.',
+  'Wyraziła świadomą zgodę na udział w projekcie.',
+])}
+<p class="tm" style="margin-top:1.25rem">O przyjęciu decyduje lekarz na podstawie dokumentacji medycznej i pilności potrzeb zdrowotnych. Jeśli wszystkie miejsca są zajęte, tworzona jest lista oczekujących.</p>`)}
+
+${sb('V.','Rekrutacja',`
+<p class="tm" style="margin-bottom:1.5rem">Rekrutacja jest otwarta. Zgłoszenia można składać osobiście, pocztą lub elektronicznie.</p>
+<div class="ddp">
+  <p class="ddp-lbl">Biuro projektu</p>
+  <p class="ddp-addr">ul. Rynek 7, 06-200 Maków Mazowiecki</p>
+  <div class="dr"><span class="dk">Godziny</span><span class="dv">dni robocze, 8:00–16:00</span></div>
+  <div class="dr"><span class="dk">E-mail</span><span class="dv">dominikasutnik@wp.pl</span></div>
+</div>
+<p class="tm" style="margin-top:1.25rem">Biuro jest dostępne architektonicznie. Pomagamy w wypełnieniu i skompletowaniu dokumentów.</p>`)}`;
+}
+
+function ostrolecki(){
+  return `
+<p class="ph-lbl">DOM-MED Dominika Sutnik</p>
+<h1 class="ph-h">Hospicjum domowe w powiecie ostrołęckim</h1>
+<div class="ph-bar"></div>
+
+${sb('I.','Informacje ogólne',`
+<p class="tm" style="margin-bottom:1rem">DOM-MED Dominika Sutnik realizuje projekt <em>„Hospicjum domowe w powiecie ostrołęckim"</em>. Projekt jest współfinansowany z Europejskiego Funduszu Społecznego Plus w ramach:</p>
+<ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
+  <li class="tm acc-bdr">Priorytet VIII — Fundusze Europejskie dla aktywnej integracji oraz rozwoju usług społecznych i zdrowotnych na Mazowszu</li>
+  <li class="tm acc-bdr">Działanie 8.5 — Usługi społeczne i zdrowotne, Program Fundusze Europejskie dla Mazowsza 2021–2027</li>
+</ul>
+<div class="bx" style="margin-bottom:1rem"><p class="bx-l">Nr umowy o dofinansowanie</p><p class="bx-v">FEMA.08.05-IP.01-07YG/25</p></div>
+<div class="bx"><p class="bx-l">Czas realizacji</p><p class="bx-v">01.12.2025 – 31.12.2028</p></div>
+<p class="tm" style="margin-top:1.5rem">Projekt realizowany jest w partnerstwie z <strong>Fundacją Zdrowie i Ty</strong>.</p>`)}
+
+${sb('II.','Cel projektu',`
+<p class="tm" style="margin-bottom:1.25rem">Celem projektu jest poprawa jakości życia chorych i ich bliskich — dorosłych mieszkańców powiatu ostrołęckiego wymagających wsparcia paliatywnego i hospicyjnego w domu. Dzięki wsparciu pacjent może pozostać w swoim domu i otrzymać profesjonalną opiekę medyczną oraz pomoc społeczną.</p>
+${fin('5 116 963,41 zł','4 349 418,90 zł')}`)}
+
+${sb('III.','Co oferujemy w projekcie',`
+<p class="tm" style="margin-bottom:1rem;font-weight:600;color:var(--fg)">Opieka nad pacjentem</p>
+${bul([
+  'Indywidualna diagnoza potrzeb pacjenta i jego rodziny, indywidualny plan opieki dopasowany do stanu zdrowia.',
+  'Wizyty lekarza, pielęgniarki, fizjoterapeuty, psychologa i pracownika socjalnego.',
+  'Pomoc opiekuna środowiskowego w codziennych czynnościach.',
+  'Dostęp do potrzebnego sprzętu medycznego.',
+  'Możliwość transportu do placówek ochrony zdrowia.',
+])}
+<p class="tm" style="margin:1.25rem 0 1rem;font-weight:600;color:var(--fg)">Wsparcie dla rodzin i opiekunów</p>
+${bul([
+  'Instruktaże i szkolenia, jak opiekować się osobą chorą.',
+  'Pomoc psychologiczna i grupy wsparcia.',
+  'Opieka wytchnieniowa — czasowa pomoc w opiece nad chorym.',
+])}
+<p class="tm" style="margin:1.25rem 0 1rem;font-weight:600;color:var(--fg)">Wsparcie dla personelu opiekuńczego</p>
+${bul([
+  'Konsultacje psychologiczne dla opiekunów i pracownika socjalnego.',
+])}`)}
+
+${sb('IV.','Kto może wziąć udział',`
+<p class="tm" style="margin-bottom:1rem">Uczestnikiem może być osoba, która:</p>
+${bul([
+  'Ma ukończone 18 lat.',
+  'Mieszka w powiecie ostrołęckim.',
+  'Choruje i wymaga opieki paliatywnej lub hospicyjnej.',
+  'Nie wymaga całodobowej opieki w placówce stacjonarnej.',
+  'Nie korzysta równocześnie z hospicjum domowego finansowanego przez NFZ.',
+  'Udzieliła świadomej zgody na udział w projekcie (lub zrobił to jej opiekun faktyczny).',
+])}
+<p class="tm" style="margin-top:1.25rem">O przyjęciu decyduje lekarz na podstawie dokumentacji medycznej i potrzeb pacjenta. Pierwszeństwo mają osoby wymagające pilniejszej opieki.</p>`)}
+
+${sb('V.','Rekrutacja',`
+<p class="tm" style="margin-bottom:1.5rem">Rekrutacja jest otwarta i prowadzona przez cały czas trwania projektu. Zgłoszenie można złożyć osobiście, pocztą lub elektronicznie.</p>
+<div class="ddp">
+  <p class="ddp-lbl">Biuro projektu</p>
+  <p class="ddp-addr">ul. gen. I. Prądzyńskiego 4/30, 07-410 Ostrołęka</p>
+  <div class="dr"><span class="dk">Godziny</span><span class="dv">dni robocze, 8:00–16:00</span></div>
+  <div class="dr"><span class="dk">E-mail</span><span class="dv">dominikasutnik@wp.pl</span></div>
+</div>
+<p class="tm" style="margin-top:1.25rem">Biuro jest dostępne architektonicznie.</p>`)}`;
 }
 
 function przasnysz(){
