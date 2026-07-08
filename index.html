@@ -951,6 +951,13 @@ function fizjo(){
 }
 
 function makowski(){
+  const F=[
+    {l:'Regulamin rekrutacji i uczestnictwa w projekcie',h:'docs/makowski/regulamin.docx'},
+    {l:'Formularz zgłoszeniowy do projektu',h:'docs/makowski/zalacznik-1.docx'},
+    {l:'Formularz zgłoszeniowy do projektu dla opiekuna faktycznego',h:'docs/makowski/zalacznik-2.docx'},
+    {l:'Umowa uczestnictwa w projekcie',h:'docs/makowski/zalacznik-3.docx'},
+    {l:'Umowa uczestnictwa w projekcie dla opiekuna faktycznego',h:'docs/makowski/zalacznik-4.docx'},
+  ];
   return `
 <p class="ph-lbl">DOM-MED Dominika Sutnik</p>
 <h1 class="ph-h">Hospicjum domowe w powiecie makowskim</h1>
@@ -1012,7 +1019,8 @@ ${sb('V.','Rekrutacja',`
   <div class="dr"><span class="dk">Godziny</span><span class="dv">dni robocze, 8:00–16:00</span></div>
   <div class="dr"><span class="dk">E-mail</span><span class="dv">dominikasutnik@wp.pl</span></div>
 </div>
-<p class="tm" style="margin-top:1.25rem">Biuro jest dostępne architektonicznie. Pomagamy w wypełnieniu i skompletowaniu dokumentów.</p>`)}`;
+<p class="tm" style="margin-top:1.25rem">Biuro jest dostępne architektonicznie. Pomagamy w wypełnieniu i skompletowaniu dokumentów.</p>
+<div class="fsec" style="margin-top:1.5rem;padding-top:0;border-top:none"><div class="fl">${fLinks(F)}</div></div>`)}`;
 }
 
 function ostrolecki(){
