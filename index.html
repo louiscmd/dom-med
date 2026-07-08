@@ -1016,6 +1016,13 @@ ${sb('V.','Rekrutacja',`
 }
 
 function ostrolecki(){
+  const F=[
+    {l:'Regulamin rekrutacji i uczestnictwa w projekcie',h:'docs/ostrolecki/regulamin.docx'},
+    {l:'Formularz zgłoszeniowy do projektu',h:'docs/ostrolecki/zalacznik-1.docx'},
+    {l:'Formularz zgłoszeniowy do projektu dla opiekuna faktycznego',h:'docs/ostrolecki/zalacznik-2.docx'},
+    {l:'Umowa uczestnictwa w projekcie',h:'docs/ostrolecki/zalacznik-3.docx'},
+    {l:'Umowa uczestnictwa w projekcie dla opiekuna faktycznego',h:'docs/ostrolecki/zalacznik-4.docx'},
+  ];
   return `
 <p class="ph-lbl">DOM-MED Dominika Sutnik</p>
 <h1 class="ph-h">Hospicjum domowe w powiecie ostrołęckim</h1>
@@ -1038,8 +1045,8 @@ ${fin('5 116 963,41 zł','4 349 418,90 zł')}`)}
 ${sb('III.','Co oferujemy w projekcie',`
 <p class="tm" style="margin-bottom:1rem;font-weight:600;color:var(--fg)">Opieka nad pacjentem</p>
 ${bul([
-  'Indywidualna diagnoza potrzeb pacjenta i jego rodziny, indywidualny plan opieki dopasowany do stanu zdrowia.',
-  'Wizyty lekarza, pielęgniarki, fizjoterapeuty, psychologa i pracownika socjalnego.',
+  'Indywidualna diagnoza potrzeb pacjenta i jego rodziny, indywidualny plan opieki dopasowany do stanu zdrowia, ewaluacja wsparcia.',
+  'Wizyty lekarza, pielęgniarki, fizjoterapeuty, psychologa, dietetyka i pracownika socjalnego.',
   'Pomoc opiekuna środowiskowego w codziennych czynnościach.',
   'Dostęp do potrzebnego sprzętu medycznego.',
   'Możliwość transportu do placówek ochrony zdrowia.',
@@ -1075,7 +1082,8 @@ ${sb('V.','Rekrutacja',`
   <div class="dr"><span class="dk">Godziny</span><span class="dv">dni robocze, 8:00–16:00</span></div>
   <div class="dr"><span class="dk">E-mail</span><span class="dv">dominikasutnik@wp.pl</span></div>
 </div>
-<p class="tm" style="margin-top:1.25rem">Biuro jest dostępne architektonicznie.</p>`)}`;
+<p class="tm" style="margin-top:1.25rem">Biuro jest dostępne architektonicznie.</p>
+<div class="fsec" style="margin-top:1.5rem;padding-top:0;border-top:none"><div class="fl">${fLinks(F)}</div></div>`)}`;
 }
 
 function przasnysz(){
